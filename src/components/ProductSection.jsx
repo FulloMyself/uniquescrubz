@@ -23,7 +23,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: ['Black', 'Mix'],
       tags: ['Unisex'],
-      image: '/src/assets/BlackFull_Scrub.jpeg',
+      image: '/assets/BlackFull_Scrub.jpeg', // Corrected path
       description: 'A sleek and professional black scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -35,7 +35,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: ['Black', 'Patterned'],
       tags: ['Men'],
-      image: '/src/assets/BlackPatterned_Scrubs.jpeg',
+      image: '/assets/BlackPatterned_Scrubs.jpeg', // Corrected path
       description: 'A sleek and professional black, patterned scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -47,7 +47,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: 'Blue',
       tags: ['Unisex'],
-      image: '/src/assets/Blue_Scrub.jpeg',
+      image: '/assets/Blue_Scrub.jpeg', // Corrected path
       description: 'A sleek and professional blue scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -59,7 +59,7 @@ export default function ProductSection({
       numericPrice: 549,
       color: 'Blue',
       tags: ['Women'],
-      image: '/src/assets/BlueFull_Scrubs.png',
+      image: '/assets/BlueFull_Scrubs.png', // Corrected path
       description: 'A sleek and professional navy scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -71,7 +71,7 @@ export default function ProductSection({
       numericPrice: 329,
       color: ['Blue', 'Patterned'],
       tags: ['Women'],
-      image: '/src/assets/BluePatterned_Scrub.jpeg',
+      image: '/assets/BluePatterned_Scrub.jpeg', // Corrected path
       description: 'A sleek and professional blue traditional patterned scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Top',
@@ -83,7 +83,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: ['Charcoal', 'Gray'],
       tags: ['Unisex'],
-      image: '/src/assets/Charcoal_Scrub.jpeg',
+      image: '/assets/Charcoal_Scrub.jpeg', // Corrected path
       description: 'A sleek and professional gender neutral charcoal colored scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -95,7 +95,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: 'Cream',
       tags: ['Unisex'],
-      image: '/src/assets/Cream_Scrub.jpeg',
+      image: '/assets/Cream_Scrub.jpeg', // Corrected path
       description: 'A sleek and professional cream scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -107,7 +107,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: 'Black',
       tags: ['Unisex'],
-      image: '/src/assets/GenderNeutralBlackFull_Scrub.png',
+      image: '/assets/GenderNeutralBlackFull_Scrub.png', // Corrected path
       description: 'A sleek and professional black scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -119,7 +119,7 @@ export default function ProductSection({
       numericPrice: 549,
       color: 'Blue',
       tags: ['Unisex'],
-      image: '/src/assets/GenderNeutralBlueFull_Scrub.png',
+      image: '/assets/GenderNeutralBlueFull_Scrub.png', // Corrected path
       description: 'A sleek and professional blue scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -131,7 +131,7 @@ export default function ProductSection({
       numericPrice: 549,
       color: ['Mix', 'Patterned'],
       tags: ['Men'],
-      image: '/src/assets/GentsColourful_Scrubs.jpeg',
+      image: '/assets/GentsColourful_Scrubs.jpeg', // Corrected path
       description: 'A sleek and professional traditional coloured scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Top',
@@ -143,7 +143,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: ['Gray'],
       tags: ['Unisex'],
-      image: '/src/assets/GrayFull_Scrubs.jpeg',
+      image: '/assets/GrayFull_Scrubs.jpeg', // Corrected path
       description: 'A sleek and professional gray scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',

@@ -26,7 +26,7 @@ export default function HeroSection() {
         {/* Image Section */}
         <div className="flex-1">
           <img
-            src="/src/assets/banner.png"
+            src="/assets/banner.png"
             alt="Scrubz"
             className="rounded-3xl shadow-2xl"
           />

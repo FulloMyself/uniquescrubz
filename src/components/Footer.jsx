@@ -1,14 +1,14 @@
 // src/components/Footer.jsx
 import React from 'react';
 import { FaFacebook, FaInstagram, FaTwitter } from 'react-icons/fa';
-import logo from '../assets/logo.jpeg'; // update path if different
+import logo from '/assets/logo.jpeg'; // update path if different
 
 export default function Footer() {
   return (
     <footer className="bg-gold text-black py-10 mt-12">
       <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
         <div className="flex flex-col items-center md:items-start">
-                  <img src={logo} alt="Logo" className="h-12 mb-2" tracking-wide/>
+                  <img src={logo} alt="Logo" className="h-12 mb-2 tracking-wide"/>
           <p className="text-sm">&copy; {new Date().getFullYear()} Unique Scrubz and Clothing. All rights reserved.</p>
         </div>
 

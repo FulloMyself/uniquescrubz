@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
-import logo from '../assets/logo.jpeg'; // update path if different
+import logo from '/assets/logo.jpeg'; // update path if different
 
 export default function Navbar({ cartItems, toggleCart }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,7 +13,7 @@ export default function Navbar({ cartItems, toggleCart }) {
     <nav className="bg-gold shadow-md w-full fixed top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
-                  <img src={logo} alt="Logo" className="h-12 mb-2" tracking-wide/>
+                  <img src={logo} alt="Logo" className="h-12 mb-2 tracking-wide"/>
 
         {/* Desktop Nav Links */}
         <div className="hidden md:flex space-x-6 text-black font-medium">

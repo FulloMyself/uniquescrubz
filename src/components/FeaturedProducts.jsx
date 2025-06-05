@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
+// Import images
+import BlackScrubImg from '/assets/Black_Scrub.jpeg';
+import PinkScrubImg from '/assets/Pink_Scrub.jpeg';
+import BlueScrubImg from '/assets/General_Blue_Scrub.png';
+
 export default function FeaturedProducts({
   selectedColor = 'All',
   selectedTag = 'All',
@@ -18,7 +23,7 @@ export default function FeaturedProducts({
       numericPrice: 299,
       color: 'Black',
       tags: ['Men', 'Unisex'],
-      image: '/src/assets/Black_Scrub.jpeg',
+      image: BlackScrubImg,
     },
     {
       id: 2,
@@ -27,7 +32,7 @@ export default function FeaturedProducts({
       numericPrice: 349,
       color: 'Pink',
       tags: ['Women'],
-      image: '/src/assets/Pink_Scrub.jpeg',
+      image: PinkScrubImg,
     },
     {
       id: 3,
@@ -36,7 +41,7 @@ export default function FeaturedProducts({
       numericPrice: 329,
       color: 'Blue',
       tags: ['Unisex'],
-      image: '/src/assets/General_Blue_Scrub.png',
+      image: BlueScrubImg,
     }
   ];
 

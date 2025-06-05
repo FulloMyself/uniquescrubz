@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
+      const merchantId = import.meta.env.VITE_PAYFAST_MERCHANT_ID;
+      const merchantKey = import.meta.env.VITE_PAYFAST_MERCHANT_KEY;
 
 export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpen }) {
   const [showCheckout, setShowCheckout] = useState(false);
@@ -72,8 +74,8 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
     form.action = 'https://www.payfast.co.za/eng/process';
 
     const data = {
-      merchant_id: '11469840',
-      merchant_key: 'sayrtqqspywws',
+      merchant_id: merchantId,
+      merchant_key: merchantKey,
       amount: totalPrice.toFixed(2),
       item_name: 'Unique Scrubz Order',
       name_first: customerName,
@@ -228,13 +230,6 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
 
               <div className="mb-4">
                 <p className="font-bold mb-2">Payment Options:</p>
-
-                <button
-                  onClick={() => alert('Redirecting to Ozow (Capitec Pay)...')}
-                  className="w-full bg-blue-600 text-black py-2 px-4 rounded hover:bg-blue-700 transition"
-                >
-                  💳 Pay with Capitec Pay (Ozow)
-                </button>
 
                 <button
                   onClick={handlePayfastRedirect}

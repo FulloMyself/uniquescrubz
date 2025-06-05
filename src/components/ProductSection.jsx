@@ -1,6 +1,19 @@
 import React from 'react';
 import toast from 'react-hot-toast';
 
+// Import all images
+import BlackFullScrubImg from '/assets/BlackFull_Scrub.jpeg';
+import BlackPatternedScrubsImg from '/assets/BlackPatterned_Scrubs.jpeg';
+import BlueScrubImg from '/assets/Blue_Scrub.jpeg';
+import BlueFullScrubsImg from '/assets/BlueFull_Scrubs.png';
+import BluePatternedScrubImg from '/assets/BluePatterned_Scrub.jpeg';
+import CharcoalScrubImg from '/assets/Charcoal_Scrub.jpeg';
+import CreamScrubImg from '/assets/Cream_Scrub.jpeg';
+import GenderNeutralBlackFullScrubImg from '/assets/GenderNeutralBlackFull_Scrub.png';
+import GenderNeutralBlueFullScrubImg from '/assets/GenderNeutralBlueFull_Scrub.png';
+import GentsColourfulScrubsImg from '/assets/GentsColourful_Scrubs.jpeg';
+import GrayFullScrubsImg from '/assets/GrayFull_Scrubs.jpeg';
+
 export default function ProductSection({
   setCartItems,
   selectedColor = 'All',
@@ -23,7 +36,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: ['Black', 'Mix'],
       tags: ['Unisex'],
-      image: '/assets/BlackFull_Scrub.jpeg', // Corrected path
+      image: BlackFullScrubImg,
       description: 'A sleek and professional black scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -35,7 +48,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: ['Black', 'Patterned'],
       tags: ['Men'],
-      image: '/assets/BlackPatterned_Scrubs.jpeg', // Corrected path
+      image: BlackPatternedScrubsImg,
       description: 'A sleek and professional black, patterned scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -47,7 +60,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: 'Blue',
       tags: ['Unisex'],
-      image: '/assets/Blue_Scrub.jpeg', // Corrected path
+      image: BlueScrubImg,
       description: 'A sleek and professional blue scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -59,7 +72,7 @@ export default function ProductSection({
       numericPrice: 549,
       color: 'Blue',
       tags: ['Women'],
-      image: '/assets/BlueFull_Scrubs.png', // Corrected path
+      image: BlueFullScrubsImg,
       description: 'A sleek and professional navy scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -71,7 +84,7 @@ export default function ProductSection({
       numericPrice: 329,
       color: ['Blue', 'Patterned'],
       tags: ['Women'],
-      image: '/assets/BluePatterned_Scrub.jpeg', // Corrected path
+      image: BluePatternedScrubImg,
       description: 'A sleek and professional blue traditional patterned scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Top',
@@ -83,7 +96,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: ['Charcoal', 'Gray'],
       tags: ['Unisex'],
-      image: '/assets/Charcoal_Scrub.jpeg', // Corrected path
+      image: CharcoalScrubImg,
       description: 'A sleek and professional gender neutral charcoal colored scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -95,7 +108,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: 'Cream',
       tags: ['Unisex'],
-      image: '/assets/Cream_Scrub.jpeg', // Corrected path
+      image: CreamScrubImg,
       description: 'A sleek and professional cream scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -107,7 +120,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: 'Black',
       tags: ['Unisex'],
-      image: '/assets/GenderNeutralBlackFull_Scrub.png', // Corrected path
+      image: GenderNeutralBlackFullScrubImg,
       description: 'A sleek and professional black scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -119,7 +132,7 @@ export default function ProductSection({
       numericPrice: 549,
       color: 'Blue',
       tags: ['Unisex'],
-      image: '/assets/GenderNeutralBlueFull_Scrub.png', // Corrected path
+      image: GenderNeutralBlueFullScrubImg,
       description: 'A sleek and professional blue scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -131,7 +144,7 @@ export default function ProductSection({
       numericPrice: 549,
       color: ['Mix', 'Patterned'],
       tags: ['Men'],
-      image: '/assets/GentsColourful_Scrubs.jpeg', // Corrected path
+      image: GentsColourfulScrubsImg,
       description: 'A sleek and professional traditional coloured scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Top',
@@ -143,7 +156,7 @@ export default function ProductSection({
       numericPrice: 799,
       color: ['Gray'],
       tags: ['Unisex'],
-      image: '/assets/GrayFull_Scrubs.jpeg', // Corrected path
+      image: GrayFullScrubsImg,
       description: 'A sleek and professional gray scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
@@ -152,9 +165,11 @@ export default function ProductSection({
 
   const filteredProducts = products
     .filter(product => {
-      const colorMatch = selectedColor === 'All' || product.color === selectedColor;
+      const colorMatch = selectedColor === 'All' || (Array.isArray(product.color)
+    ? product.color.includes(selectedColor)
+    : product.color === selectedColor);
       const tagMatch = selectedTag === 'All' || product.tags.includes(selectedTag);
-      const typeMatch = selectedProductType === 'All' || product.type === selectedProductType;
+      const typeMatch = selectedType === 'All' || product.type === selectedType;
       const searchMatch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
       return colorMatch && tagMatch && typeMatch && searchMatch;
     })

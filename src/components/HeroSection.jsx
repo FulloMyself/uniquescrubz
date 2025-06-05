@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import bannerImg from '/assets/banner.png';
 
 export default function HeroSection() {
   return (
@@ -26,7 +26,7 @@ export default function HeroSection() {
         {/* Image Section */}
         <div className="flex-1">
           <img
-            src="/assets/banner.png"
+            src={bannerImg}
             alt="Scrubz"
             className="rounded-3xl shadow-2xl"
           />

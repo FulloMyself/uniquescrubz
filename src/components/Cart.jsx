@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import emailjs from '@emailjs/browser';
-      const merchantId = import.meta.env.VITE_PAYFAST_MERCHANT_ID;
-      const merchantKey = import.meta.env.VITE_PAYFAST_MERCHANT_KEY;
+
+const merchantId = import.meta.env.VITE_PAYFAST_MERCHANT_ID;
+const merchantKey = import.meta.env.VITE_PAYFAST_MERCHANT_KEY;
 
 export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpen }) {
   const [showCheckout, setShowCheckout] = useState(false);
@@ -26,7 +27,8 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
     setCartItems(prev =>
       prev.map(item =>
         item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 } : item
+          ? { ...item, quantity: item.quantity - 1 }
+          : item
       )
     );
   };
@@ -63,16 +65,19 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
     }
   };
 
-  const handlePayfastRedirect = () => {
+  // The new handlePayfastOrder function:
+  const handlePayfastOrder = () => {
     if (!customerName || !customerEmail) {
       alert('Please enter your name and email before proceeding.');
       return;
     }
 
+    // Create a new form element
     const form = document.createElement('form');
     form.method = 'POST';
     form.action = 'https://www.payfast.co.za/eng/process';
 
+    // PayFast required data fields
     const data = {
       merchant_id: merchantId,
       merchant_key: merchantKey,
@@ -82,16 +87,17 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
       email_address: customerEmail,
       return_url: 'https://uniquescrubz.co.za/thank-you',
       cancel_url: 'https://uniquescrubz.co.za/',
-      notify_url: 'https://your-server.com/api/payfast-webhook'
+      notify_url: 'https://your-server.com/api/payfast-webhook' // Update this with your real notify URL
     };
 
-    for (const key in data) {
+    // Append inputs to the form
+    Object.entries(data).forEach(([key, value]) => {
       const input = document.createElement('input');
       input.type = 'hidden';
       input.name = key;
-      input.value = data[key];
+      input.value = value;
       form.appendChild(input);
-    }
+    });
 
     document.body.appendChild(form);
     form.submit();
@@ -232,7 +238,7 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
                 <p className="font-bold mb-2">Payment Options:</p>
 
                 <button
-                  onClick={handlePayfastRedirect}
+                  onClick={handlePayfastOrder}
                   className="w-full bg-green-600 text-black py-2 px-4 mt-2 rounded hover:bg-green-700 transition"
                 >
                   Pay with Payfast 💳

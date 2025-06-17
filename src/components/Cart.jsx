@@ -47,7 +47,7 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
   };
 
   try {
-    const response = await fetch("https://email-server-5l9g.onrender.com", {
+    const response = await fetch("https://email-server-5l9g.onrender.com/send-email", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"

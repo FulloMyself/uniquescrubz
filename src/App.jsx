@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-
 import AnimatedRoutes from './components/AnimatedRoutes';
 import Navbar from './components/Navbar';
 import Cart from './components/Cart';

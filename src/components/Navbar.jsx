@@ -13,7 +13,16 @@ export default function Navbar({ cartItems, toggleCart }) {
     <nav className="bg-gold shadow-md w-full fixed top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
         {/* Logo */}
-                  <img src={logo} alt="Logo" className="h-12 mb-2 tracking-wide"/>
+                  <Link to="/" className="flex items-center">
+                  <motion.img
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                      src={logo}
+                      alt="Logo"
+                      className="h-12 mb-2 tracking-wide"
+                    />
+                  </Link>
+
 
         {/* Desktop Nav Links */}
         <div className="hidden md:flex space-x-6 text-black font-medium">

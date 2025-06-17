@@ -5,6 +5,7 @@ import emailjs from '@emailjs/browser';
 const merchantId = import.meta.env.VITE_PAYFAST_MERCHANT_ID;
 const merchantKey = import.meta.env.VITE_PAYFAST_MERCHANT_KEY;
 
+
 export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpen }) {
   const [showCheckout, setShowCheckout] = useState(false);
   const [customerName, setCustomerName] = useState('');
@@ -38,32 +39,41 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
   };
 
   const handlePlaceOrder = async () => {
-    const orderDetails = {
-      name: customerName,
-      email: customerEmail,
-      items: cartItems.map(item => `${item.name} x ${item.quantity}`).join(', '),
-      total: `R${totalPrice.toFixed(2)}`
-    };
+  const orderDetails = {
+    name: customerName,
+    email: customerEmail,
+    items: cartItems.map(item => `${item.name} x ${item.quantity}`).join(', '),
+    total: `R${totalPrice.toFixed(2)}`
+  };
 
-    try {
-      await emailjs.send(
-        'service_UniqueScrubz-Ord',
-        'template_05839d5',
-        orderDetails,
-        'LBscrLEGz7DznaDAm'
-      );
+  try {
+    const response = await fetch("http://localhost:5000/send-email", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify(orderDetails)
+});
 
-      alert('Order submitted! Thank you.');
+
+    const result = await response.json();
+
+    if (response.ok) {
+      alert("Order submitted and email sent!");
       setIsCartOpen(false);
       setShowCheckout(false);
-      setCustomerName('');
-      setCustomerEmail('');
+      setCustomerName("");
+      setCustomerEmail("");
       setCartItems([]);
-    } catch (error) {
-      alert('Failed to send order. Please try again.');
-      console.error('EmailJS Error:', error);
+    } else {
+      alert("Failed to send email. Please try again later.");
+      console.error("Server error:", result);
     }
-  };
+  } catch (error) {
+    alert("Failed to send email. Please try again later.");
+    console.error("Error sending email:", error);
+  }
+};
 
   // The new handlePayfastOrder function:
   const handlePayfastOrder = () => {
@@ -265,7 +275,7 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
                   className="px-4 py-2 rounded bg-black text-gold hover:bg-gold hover:text-black border border-gold transition"
                   disabled={!customerName || !customerEmail}
                 >
-                  Confirm Order
+                  Order Now
                 </button>
               </div>
             </motion.div>

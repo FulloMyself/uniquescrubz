@@ -1,9 +1,18 @@
 // HomeDecor.jsx
 import React from "react";
+import { motion } from 'framer-motion';
+import Footer from "../components/Footer";
 
 export default function HomeDecor() {
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <>
+    <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -30 }}
+          transition={{ duration: 0.5 }}
+        >
+    <div className="pt-24 p-8 max-w-3xl mx-auto min-h-[80vh]">
       <h1 className="text-3xl font-bold mb-6">HomeDecor</h1>
       <p className="mb-6">
         We supply high-quality corporate gifts for all occasions: Father's Day, Mother's Day, Valentine's Day, and more.
@@ -26,5 +35,9 @@ export default function HomeDecor() {
         </div>
       </div>
     </div>
+    </motion.div>
+
+    <Footer />
+    </>   
   );
 }

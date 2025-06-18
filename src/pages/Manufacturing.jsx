@@ -102,16 +102,17 @@ export default function Manufacturing() {
       </div>
 
       {/* Lightbox Popup */}
-      {isOpen && (
-        <Lightbox
-          mainSrc={images[photoIndex]}
-          nextSrc={images[(photoIndex + 1) % images.length]}
-          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-          onCloseRequest={() => setIsOpen(false)}
-          onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
-          onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
-        />
-      )}
+     {typeof window !== "undefined" && isOpen && (
+  <Lightbox
+    mainSrc={images[photoIndex]}
+    nextSrc={images[(photoIndex + 1) % images.length]}
+    prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+    onCloseRequest={() => setIsOpen(false)}
+    onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
+    onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
+  />
+)}
+
 
       {/* Video Preview */}
       <div className="mt-16 px-6 max-w-3xl mx-auto">

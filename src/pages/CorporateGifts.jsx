@@ -30,10 +30,15 @@ export default function CorporateGifts() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://email-server-5l9g.onrender.com/send-corporate-interest", {
+      const res = await fetch("https://email-server-5l9g.onrender.com/send-manufacturing-booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: "Corporate Gift Inquiry",
+          message: formData.interest,
+        }),
       });
 
       const result = await res.json();

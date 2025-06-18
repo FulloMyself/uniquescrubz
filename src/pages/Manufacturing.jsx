@@ -1,7 +1,8 @@
+// src/pages/Manufacturing.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Footer from "../components/Footer";
-import { Carousel } from 'react-responsive-carousel';
+import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
 const base = import.meta.env.BASE_URL;
@@ -23,7 +24,6 @@ const images = [
 export default function Manufacturing() {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
-  const [loadingImage, setLoadingImage] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -37,7 +37,6 @@ export default function Manufacturing() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const res = await fetch("https://email-server-5l9g.onrender.com/send-manufacturing-booking", {
         method: "POST",
@@ -46,7 +45,6 @@ export default function Manufacturing() {
       });
 
       const result = await res.json();
-
       if (res.ok) {
         alert("Appointment booked. Confirmation sent.");
         setFormData({ name: "", email: "", phone: "", message: "" });
@@ -61,95 +59,71 @@ export default function Manufacturing() {
   };
 
   return (
-    <>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -30 }}
-        transition={{ duration: 0.5 }}
-      >
-        {/* Booking Form */}
-        <div className="pt-28 px-6 max-w-3xl mx-auto">
-          <h1 className="text-3xl font-bold mb-6">Book a Manufacturing Appointment</h1>
-          <p className="mb-4">Please fill out the form below to schedule a consultation about your manufacturing needs.</p>
-
-          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              required
-              value={formData.name}
-              onChange={handleChange}
-              className="border p-2 rounded"
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              required
-              value={formData.email}
-              onChange={handleChange}
-              className="border p-2 rounded"
-            />
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone Number"
-              required
-              value={formData.phone}
-              onChange={handleChange}
-              className="border p-2 rounded"
-            />
-            <textarea
-              name="message"
-              placeholder="Describe your manufacturing needs"
-              rows={5}
-              required
-              value={formData.message}
-              onChange={handleChange}
-              className="border p-2 rounded"
-            />
-            <button
-              type="submit"
-              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded"
-            >
-              Book Appointment
-            </button>
-          </form>
-        </div> 
-        <hr className="my-10 border-gray-300" />
-      {/* Carousel */}
-      <div className="max-w-5xl mx-auto px-4">
-        <h2 className="text-2xl font-bold mb-6 text-center">Our Previous Work</h2>
-        <Carousel
-          showArrows
-          autoPlay
-          infiniteLoop
-          dynamicHeight
-          interval={5000}
-          showThumbs={false}
-          showStatus={false}
-        >
-          {images.map((img, i) => (
-            <div key={i}>
-              <img src={img} loading="lazy" alt={`Manufactured item ${i + 1}`} className="rounded-md" />
-            </div>
-          ))}
-        </Carousel>
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -30 }}
+      transition={{ duration: 0.5 }}
+    >
+      {/* Booking Form */}
+      <div className="pt-28 px-6 max-w-3xl mx-auto">
+        <h1 className="text-3xl font-bold mb-6">Book a Manufacturing Appointment</h1>
+        <p className="mb-4">Please fill out the form below to schedule a consultation about your manufacturing needs.</p>
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <input name="name" required placeholder="Full Name" value={formData.name} onChange={handleChange} className="border p-2 rounded" />
+          <input name="email" required type="email" placeholder="Email Address" value={formData.email} onChange={handleChange} className="border p-2 rounded" />
+          <input name="phone" required placeholder="Phone Number" value={formData.phone} onChange={handleChange} className="border p-2 rounded" />
+          <textarea name="message" required rows={5} placeholder="Describe your manufacturing needs" value={formData.message} onChange={handleChange} className="border p-2 rounded" />
+          <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded">
+            Book Appointment
+          </button>
+        </form>
       </div>
 
-        {/* Video Preview */}
-        <div className="mt-16 px-6 max-w-3xl mx-auto">
-          <h2 className="text-xl font-semibold mb-3 text-center">Video Preview</h2>
-          <video
-            src={`${base}images/manufacturing/poodle_in_dress.mp4`}
-            controls
-            className="w-full rounded shadow-lg"
-          />
+      <hr className="my-10 border-gray-300" />
+
+      {/* Gallery Grid */}
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-6 text-center">Our Previous Work</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          {images.map((img, index) => (
+            <div
+              key={index}
+              className="cursor-pointer overflow-hidden rounded shadow hover:scale-105 transition-transform"
+              onClick={() => {
+                setPhotoIndex(index);
+                setIsOpen(true);
+              }}
+            >
+              <img src={img} alt={`Gallery item ${index + 1}`} className="w-full h-56 object-cover" />
+            </div>
+          ))}
         </div>
-        <Footer />
-      </motion.div>
-    </>
+      </div>
+
+      {/* Lightbox Popup */}
+      {isOpen && (
+        <Lightbox
+          mainSrc={images[photoIndex]}
+          nextSrc={images[(photoIndex + 1) % images.length]}
+          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+          onCloseRequest={() => setIsOpen(false)}
+          onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
+          onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
+        />
+      )}
+
+      {/* Video Preview */}
+      <div className="mt-16 px-6 max-w-3xl mx-auto">
+        <h2 className="text-xl font-semibold mb-3 text-center">Video Preview</h2>
+        <video
+          src={`${base}images/manufacturing/poodle_in_dress.mp4`}
+          controls
+          className="w-full rounded shadow-lg"
+        />
+      </div>
+
+      <Footer />
+    </motion.div>
   );
 }

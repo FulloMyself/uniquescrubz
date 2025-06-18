@@ -1,3 +1,4 @@
+// src/pages/Manufacturing.jsx
 import React, { useState } from "react";
 import { motion } from 'framer-motion';
 import Footer from "../components/Footer";
@@ -5,18 +6,17 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 
 const images = [
-  "/images/manufacturing/poster.jpg",
-  "/images/manufacturing/chef_coat.jpg",
-  "/images/manufacturing/patterned_coat.jpg",
-  "/images/manufacturing/coat_patterned.jpg",
-  "/images/manufacturing/black_bright_top.jpg",
-  "/images/manufacturing/couple_outfit.jpg",
-  "/images/manufacturing/poodle_in_dress.mp4",
-  "/images/manufacturing/poodle_dress.jpg",
-  "/images/manufacturing/poodle_suit.jpg",
-  "/images/manufacturing/white_one_piece.jpg",
-  "/images/manufacturing/man_two_piece.jpg",
-  "/images/manufacturing/patterned_dresses.jpg",
+  `${process.env.PUBLIC_URL}/images/manufacturing/poster.jpg`,
+  `${process.env.PUBLIC_URL}/images/manufacturing/chef_coat.jpg`,
+  `${process.env.PUBLIC_URL}/images/manufacturing/patterned_coat.jpg`,
+  `${process.env.PUBLIC_URL}/images/manufacturing/coat_patterned.jpg`,
+  `${process.env.PUBLIC_URL}/images/manufacturing/black_bright_top.jpg`,
+  `${process.env.PUBLIC_URL}/images/manufacturing/couple_outfit.jpg`,
+  `${process.env.PUBLIC_URL}/images/manufacturing/poodle_dress.jpg`,
+  `${process.env.PUBLIC_URL}/images/manufacturing/poodle_suit.jpg`,
+  `${process.env.PUBLIC_URL}/images/manufacturing/white_one_piece.jpg`,
+  `${process.env.PUBLIC_URL}/images/manufacturing/man_two_piece.jpg`,
+  `${process.env.PUBLIC_URL}/images/manufacturing/patterned_dresses.jpg`,
 ];
 
 export default function Manufacturing() {
@@ -31,6 +31,7 @@ export default function Manufacturing() {
         exit={{ opacity: 0, y: -30 }}
         transition={{ duration: 0.5 }}
       >
+        {/* Booking Form */}
         <div className="pt-28 px-6 max-w-3xl mx-auto">
           <h1 className="text-3xl font-bold mb-6">Book a Manufacturing Appointment</h1>
           <p className="mb-4">
@@ -50,8 +51,10 @@ export default function Manufacturing() {
           </form>
         </div>
 
+        <hr className="my-10 border-gray-300" />
+
         {/* Gallery */}
-        <div className="mt-16 max-w-6xl mx-auto px-4">
+        <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-2xl font-bold mb-6 text-center">Our Previous Work</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {images.map((img, index) => (
@@ -71,6 +74,16 @@ export default function Manufacturing() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Video Preview */}
+        <div className="mt-16 px-6 max-w-3xl mx-auto">
+          <h2 className="text-xl font-semibold mb-3 text-center">Video Preview</h2>
+          <video
+            src={`${process.env.PUBLIC_URL}/images/manufacturing/poodle_in_dress.mp4`}
+            controls
+            className="w-full rounded shadow-lg"
+          />
         </div>
 
         {/* Lightbox */}

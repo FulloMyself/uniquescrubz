@@ -1,11 +1,12 @@
 // src/pages/Manufacturing.jsx
 import React, { useState } from "react";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import Footer from "../components/Footer";
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
 
 const base = import.meta.env.BASE_URL;
+
 const images = [
   `${base}images/manufacturing/poster.jpg`,
   `${base}images/manufacturing/chef_coat.jpg`,
@@ -23,6 +24,7 @@ const images = [
 export default function Manufacturing() {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
+  const [loadingImage, setLoadingImage] = useState(null);
 
   return (
     <>
@@ -61,15 +63,22 @@ export default function Manufacturing() {
             {images.map((img, index) => (
               <div
                 key={index}
-                className="cursor-pointer overflow-hidden rounded shadow-lg"
+                className="relative cursor-pointer overflow-hidden rounded shadow-lg"
                 onClick={() => {
+                  setLoadingImage(img);
                   setPhotoIndex(index);
                   setIsOpen(true);
                 }}
               >
+                {loadingImage === img && (
+                  <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
+                    <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-gold border-opacity-70" />
+                  </div>
+                )}
                 <img
                   src={img}
                   alt={`Work ${index + 1}`}
+                  onLoad={() => setLoadingImage(null)}
                   className="w-full h-56 object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -81,7 +90,7 @@ export default function Manufacturing() {
         <div className="mt-16 px-6 max-w-3xl mx-auto">
           <h2 className="text-xl font-semibold mb-3 text-center">Video Preview</h2>
           <video
-            src={`${process.env.PUBLIC_URL}/images/manufacturing/poodle_in_dress.mp4`}
+            src={`${base}images/manufacturing/poodle_in_dress.mp4`}
             controls
             className="w-full rounded shadow-lg"
           />

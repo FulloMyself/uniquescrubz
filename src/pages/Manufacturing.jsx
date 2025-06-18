@@ -99,30 +99,21 @@ export default function Manufacturing() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {images.map((img, index) => (
             <div
-              key={index}
-              className="cursor-pointer overflow-hidden rounded shadow hover:scale-105 transition-transform"
-              onClick={() => {
-                setPhotoIndex(index);
-                setIsOpen(true);
-              }}
-            >
-              <img src={img} alt={`Gallery item ${index + 1}`} className="w-full h-56 object-cover" />
-            </div>
+  key={index}
+  className="overflow-hidden rounded shadow-lg group hover:shadow-2xl transition"
+  style={{ pointerEvents: "auto" }}
+>
+  <img
+    src={img}
+    alt={`Work ${index + 1}`}
+    className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"
+    draggable="true"
+    onClick={(e) => e.preventDefault()} // disables left-click action
+  />
+</div>
           ))}
         </div>
       </div>
-
-      {/* Lightbox Popup */}
-     {typeof window !== "undefined" && isOpen && (
-  <Lightbox
-    mainSrc={images[photoIndex]}
-    nextSrc={images[(photoIndex + 1) % images.length]}
-    prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-    onCloseRequest={() => setIsOpen(false)}
-    onMovePrevRequest={() => setPhotoIndex((photoIndex + images.length - 1) % images.length)}
-    onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % images.length)}
-  />
-)}
 
 
       {/* Video Preview */}

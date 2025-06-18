@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
   define: {
     global: {}, // 👈 Fix "global is not defined"
+    self: {},
+    'process.env': {},
   },
   // Replace 'your-repo-name' with your actual repository name
   base: '/uniquescrubz/',

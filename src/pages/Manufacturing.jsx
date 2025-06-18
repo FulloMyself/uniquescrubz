@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Footer from "../components/Footer";
+import { Carousel } from 'react-responsive-carousel';
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
@@ -121,35 +122,27 @@ export default function Manufacturing() {
 
         <hr className="my-10 border-gray-300" />
 
-        {/* Gallery */}
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-6 text-center">Our Previous Work</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {images.map((img, index) => (
-              <div
-                key={index}
-                className="relative cursor-pointer overflow-hidden rounded shadow-lg"
-                onClick={() => {
-                  setLoadingImage(img);
-                  setPhotoIndex(index);
-                  setIsOpen(true);
-                }}
-              >
-                {loadingImage === img && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-white/70 z-10">
-                    <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-gold border-opacity-70" />
-                  </div>
-                )}
-                <img
-                  src={img}
-                  alt={`Work ${index + 1}`}
-                  onLoad={() => setLoadingImage(null)}
-                  className="w-full h-56 object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+         <hr className="my-10 border-gray-300" />
+
+      {/* Carousel */}
+      <div className="max-w-5xl mx-auto px-4">
+        <h2 className="text-2xl font-bold mb-6 text-center">Our Previous Work</h2>
+        <Carousel
+          showArrows
+          autoPlay
+          infiniteLoop
+          dynamicHeight
+          interval={5000}
+          showThumbs={false}
+          showStatus={false}
+        >
+          {images.map((img, i) => (
+            <div key={i}>
+              <img src={img} alt={`Manufactured item ${i + 1}`} className="rounded-md" />
+            </div>
+          ))}
+        </Carousel>
+      </div>
 
         {/* Video Preview */}
         <div className="mt-16 px-6 max-w-3xl mx-auto">
@@ -162,20 +155,21 @@ export default function Manufacturing() {
         </div>
 
         {/* Lightbox */}
-        {isOpen && (
-          <Lightbox
-            mainSrc={images[photoIndex]}
-            nextSrc={images[(photoIndex + 1) % images.length]}
-            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-            onCloseRequest={() => setIsOpen(false)}
-            onMovePrevRequest={() =>
-              setPhotoIndex((photoIndex + images.length - 1) % images.length)
-            }
-            onMoveNextRequest={() =>
-              setPhotoIndex((photoIndex + 1) % images.length)
-            }
-          />
-        )}
+{isOpen && images[photoIndex] && (
+  <Lightbox
+    mainSrc={images[photoIndex]}
+    nextSrc={images[(photoIndex + 1) % images.length]}
+    prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+    onCloseRequest={() => setIsOpen(false)}
+    onMovePrevRequest={() =>
+      setPhotoIndex((photoIndex + images.length - 1) % images.length)
+    }
+    onMoveNextRequest={() =>
+      setPhotoIndex((photoIndex + 1) % images.length)
+    }
+  />
+)}
+
 
         <Footer />
       </motion.div>

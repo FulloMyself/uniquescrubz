@@ -5,18 +5,19 @@ import Footer from "../components/Footer";
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 
+const base = import.meta.env.BASE_URL;
 const images = [
-  `${process.env.PUBLIC_URL}/images/manufacturing/poster.jpg`,
-  `${process.env.PUBLIC_URL}/images/manufacturing/chef_coat.jpg`,
-  `${process.env.PUBLIC_URL}/images/manufacturing/patterned_coat.jpg`,
-  `${process.env.PUBLIC_URL}/images/manufacturing/coat_patterned.jpg`,
-  `${process.env.PUBLIC_URL}/images/manufacturing/black_bright_top.jpg`,
-  `${process.env.PUBLIC_URL}/images/manufacturing/couple_outfit.jpg`,
-  `${process.env.PUBLIC_URL}/images/manufacturing/poodle_dress.jpg`,
-  `${process.env.PUBLIC_URL}/images/manufacturing/poodle_suit.jpg`,
-  `${process.env.PUBLIC_URL}/images/manufacturing/white_one_piece.jpg`,
-  `${process.env.PUBLIC_URL}/images/manufacturing/man_two_piece.jpg`,
-  `${process.env.PUBLIC_URL}/images/manufacturing/patterned_dresses.jpg`,
+  `${base}images/manufacturing/poster.jpg`,
+  `${base}images/manufacturing/chef_coat.jpg`,
+  `${base}images/manufacturing/patterned_coat.jpg`,
+  `${base}images/manufacturing/coat_patterned.jpg`,
+  `${base}images/manufacturing/black_bright_top.jpg`,
+  `${base}images/manufacturing/couple_outfit.jpg`,
+  `${base}images/manufacturing/poodle_dress.jpg`,
+  `${base}images/manufacturing/poodle_suit.jpg`,
+  `${base}images/manufacturing/white_one_piece.jpg`,
+  `${base}images/manufacturing/man_two_piece.jpg`,
+  `${base}images/manufacturing/patterned_dresses.jpg`,
 ];
 
 export default function Manufacturing() {

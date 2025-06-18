@@ -6,13 +6,13 @@ const app = express();
 
 // ✅ CORS setup
 app.use(cors({
-  origin: "http://localhost:5173", // Or replace with your actual frontend URL
+  origin: ["http://localhost:5173", "https://fullomyself.github.io"],
   methods: ["POST"],
 }));
 
 app.use(express.json());
 
-// --- Transporter for Order Emails ---
+// --- Order Transporter ---
 const orderTransporter = nodemailer.createTransport({
   host: "mail.uniqueclothing.co.za",
   port: 465,
@@ -23,7 +23,7 @@ const orderTransporter = nodemailer.createTransport({
   },
 });
 
-// --- Transporter for Booking Emails ---
+// --- Booking Transporter ---
 const bookingTransporter = nodemailer.createTransport({
   host: "mail.uniqueclothing.co.za",
   port: 465,
@@ -34,65 +34,107 @@ const bookingTransporter = nodemailer.createTransport({
   },
 });
 
-// --- Order Email Route ---
+// --- Admin Transporter ---
+const adminTransporter = nodemailer.createTransport({
+  host: "mail.uniqueclothing.co.za",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.ADMIN_MAIL,
+    pass: process.env.ADMIN_PASSWORD,
+  },
+});
+
+// ✅ Send Order Confirmation + Admin Notification
 app.post("/send-email", async (req, res) => {
   const { name, email, items, total } = req.body;
-  console.log("📧 Attempting to send order confirmation email to:", email);
 
-  const mailOptions = {
+  const customerMail = {
     from: `"Unique Scrubz Orders" <${process.env.MAIL_USER}>`,
     to: email,
     subject: "Your Unique Scrubz Order Confirmation",
     html: `
-      <h2 style="color: #333;">Thank you for your order, ${name}!</h2>
-      <p><strong>Order Summary:</strong></p>
-      <p>${items}</p>
+      <h2>Thank you for your order, ${name}!</h2>
+      <p><strong>Order Summary:</strong> ${items}</p>
       <p><strong>Total:</strong> ${total}</p>
       <p>We'll process your order shortly.</p>
-      <br/>
+      <small>&copy; ${new Date().getFullYear()} Unique Scrubz</small>
+    `,
+  };
+
+  const adminMail = {
+    from: `"Order Notification" <${process.env.ADMIN_MAIL}>`,
+    to: process.env.ADMIN_MAIL,
+    subject: `🛒 New Order Received from ${name}`,
+    html: `
+      <h2>New order received</h2>
+      <ul>
+        <li><strong>Customer:</strong> ${name}</li>
+        <li><strong>Email:</strong> ${email}</li>
+        <li><strong>Order:</strong> ${items}</li>
+        <li><strong>Total:</strong> ${total}</li>
+      </ul>
       <small>&copy; ${new Date().getFullYear()} Unique Scrubz</small>
     `,
   };
 
   try {
-    const info = await orderTransporter.sendMail(mailOptions);
-    console.log("✅ Order email sent:", info.messageId);
-    res.status(200).json({ message: "Order email sent successfully" });
+    await orderTransporter.sendMail(customerMail);
+    await adminTransporter.sendMail(adminMail); // 🔔 Notify admin
+    console.log("✅ Order emails sent (customer & admin)");
+    res.status(200).json({ message: "Order emails sent" });
   } catch (err) {
-    console.error("❌ Order email error:", err.message);
-    res.status(500).json({ error: "Failed to send order email" });
-  }
+  console.error("❌ Order email error:", err);
+  res.status(500).json({ error: "Failed to send order emails", details: err.message });
+}
 });
 
-// --- Booking Email Route ---
+
+// ✅ Send Appointment Confirmation + Admin Notification
 app.post("/send-manufacturing-booking", async (req, res) => {
   const { name, email, phone, message } = req.body;
-  console.log("📧 Sending manufacturing booking confirmation to:", email);
 
-  const mailOptions = {
+  const customerMail = {
     from: `"Unique Scrubz Appointments" <${process.env.BOOKING_MAIL_USER}>`,
     to: email,
     subject: "Your Unique Scrubz Manufacturing Appointment Confirmation",
     html: `
-      <h2 style="color: #333;">Thank you for your appointment request, ${name}!</h2>
+      <h2>Thank you, ${name}!</h2>
+      <p>Your manufacturing appointment request has been received.</p>
       <ul>
         <li><strong>Email:</strong> ${email}</li>
         <li><strong>Phone:</strong> ${phone}</li>
         <li><strong>Message:</strong> ${message}</li>
       </ul>
-      <p>We'll get back to you soon!</p>
+      <small>&copy; ${new Date().getFullYear()} Unique Scrubz</small>
+    `,
+  };
+
+  const adminMail = {
+    from: `"Appointment Notification" <${process.env.ADMIN_MAIL}>`,
+    to: process.env.ADMIN_MAIL,
+    subject: `📅 New Appointment Request from ${name}`,
+    html: `
+      <h2>New manufacturing appointment request</h2>
+      <ul>
+        <li><strong>Name:</strong> ${name}</li>
+        <li><strong>Email:</strong> ${email}</li>
+        <li><strong>Phone:</strong> ${phone}</li>
+        <li><strong>Message:</strong> ${message}</li>
+      </ul>
       <small>&copy; ${new Date().getFullYear()} Unique Scrubz</small>
     `,
   };
 
   try {
-    const info = await bookingTransporter.sendMail(mailOptions);
-    console.log("✅ Booking email sent:", info.messageId);
-    res.status(200).json({ message: "Booking email sent successfully" });
-  } catch (err) {
-    console.error("❌ Booking email error:", err.message);
-    res.status(500).json({ error: "Failed to send booking email" });
-  }
+    await bookingTransporter.sendMail(customerMail);
+    await adminTransporter.sendMail(adminMail); // 🔔 Notify admin
+    console.log("✅ Booking emails sent (customer & admin)");
+    res.status(200).json({ message: "Booking emails sent" });
+  }catch (err) {
+  console.error("❌ Booking email error:", err); // full error object
+  res.status(500).json({ error: "Failed to send booking emails", details: err.message });
+}
 });
 
 // ✅ PORT for Render

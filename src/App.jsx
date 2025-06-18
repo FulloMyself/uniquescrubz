@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import AnimatedRoutes from './components/AnimatedRoutes';
 import Navbar from './components/Navbar';
 import Cart from './components/Cart';
+import 'react-image-lightbox/style.css';
 
 export default function App() {
   const [cartItems, setCartItems] = useState([]);

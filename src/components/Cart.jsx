@@ -7,6 +7,7 @@ const merchantKey = import.meta.env.VITE_PAYFAST_MERCHANT_KEY;
 
 
 export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpen }) {
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
   const [customerName, setCustomerName] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
@@ -39,6 +40,8 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
   };
 
   const handlePlaceOrder = async () => {
+     setIsPlacingOrder(true);
+
   const orderDetails = {
     name: customerName,
     email: customerEmail,
@@ -72,6 +75,8 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
   } catch (error) {
     alert("Failed to send email. Please try again later.");
     console.error("Error sending email:", error);
+    } finally {
+    setIsPlacingOrder(false);
   }
 };
 
@@ -271,12 +276,12 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
                   Cancel
                 </button>
                 <button
-                  onClick={handlePlaceOrder}
-                  className="px-4 py-2 rounded bg-black text-gold hover:bg-gold hover:text-black border border-gold transition"
-                  disabled={!customerName || !customerEmail}
-                >
-                  Order Now
-                </button>
+  onClick={handlePlaceOrder}
+  className="px-4 py-2 rounded bg-black text-gold hover:bg-gold hover:text-black border border-gold transition"
+  disabled={isPlacingOrder || !customerName || !customerEmail}
+>
+  {isPlacingOrder ? "Sending..." : "Order Now"}
+</button>
               </div>
             </motion.div>
           </motion.div>

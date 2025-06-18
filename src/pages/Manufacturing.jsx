@@ -22,6 +22,7 @@ const images = [
 ];
 
 export default function Manufacturing() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -36,7 +37,9 @@ export default function Manufacturing() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+     e.preventDefault();
+     setIsSubmitting(true);
+
     try {
       const res = await fetch("https://email-server-5l9g.onrender.com/send-manufacturing-booking", {
         method: "POST",
@@ -55,6 +58,8 @@ export default function Manufacturing() {
     } catch (err) {
       console.error("Failed to send booking emails", err);
       alert("Something went wrong. Try again later.");
+       } finally {
+    setIsSubmitting(false);
     }
   };
 
@@ -74,9 +79,14 @@ export default function Manufacturing() {
           <input name="email" required type="email" placeholder="Email Address" value={formData.email} onChange={handleChange} className="border p-2 rounded" />
           <input name="phone" required placeholder="Phone Number" value={formData.phone} onChange={handleChange} className="border p-2 rounded" />
           <textarea name="message" required rows={5} placeholder="Describe your manufacturing needs" value={formData.message} onChange={handleChange} className="border p-2 rounded" />
-          <button type="submit" className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded">
-            Book Appointment
-          </button>
+          <button
+  type="submit"
+  className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+  disabled={isSubmitting}
+>
+  {isSubmitting ? "Booking..." : "Book Appointment"}
+</button>
+
         </form>
       </div>
 

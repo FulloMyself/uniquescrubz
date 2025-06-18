@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Footer from "../components/Footer";
 import { Carousel } from 'react-responsive-carousel';
-import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
 const base = import.meta.env.BASE_URL;
@@ -118,12 +117,8 @@ export default function Manufacturing() {
               Book Appointment
             </button>
           </form>
-        </div>
-
+        </div> 
         <hr className="my-10 border-gray-300" />
-
-         <hr className="my-10 border-gray-300" />
-
       {/* Carousel */}
       <div className="max-w-5xl mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6 text-center">Our Previous Work</h2>
@@ -138,7 +133,7 @@ export default function Manufacturing() {
         >
           {images.map((img, i) => (
             <div key={i}>
-              <img src={img} alt={`Manufactured item ${i + 1}`} className="rounded-md" />
+              <img src={img} loading="lazy" alt={`Manufactured item ${i + 1}`} className="rounded-md" />
             </div>
           ))}
         </Carousel>
@@ -153,24 +148,6 @@ export default function Manufacturing() {
             className="w-full rounded shadow-lg"
           />
         </div>
-
-        {/* Lightbox */}
-{isOpen && images[photoIndex] && (
-  <Lightbox
-    mainSrc={images[photoIndex]}
-    nextSrc={images[(photoIndex + 1) % images.length]}
-    prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-    onCloseRequest={() => setIsOpen(false)}
-    onMovePrevRequest={() =>
-      setPhotoIndex((photoIndex + images.length - 1) % images.length)
-    }
-    onMoveNextRequest={() =>
-      setPhotoIndex((photoIndex + 1) % images.length)
-    }
-  />
-)}
-
-
         <Footer />
       </motion.div>
     </>

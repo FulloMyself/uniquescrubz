@@ -6,13 +6,15 @@ import Footer from "../components/Footer";
 const base = import.meta.env.BASE_URL;
 
 const images = [
-  `${base}images/corporate/corporate1.jpg`,
-  `${base}images/corporate/corporate2.jpg`,
-  `${base}images/corporate/corporate3.jpg`,
-  `${base}images/corporate/corporate4.jpg`,
+  `${base}images/corporategifts/slippers1.jpg`,
+  `${base}images/corporategifts/slippers2.jpg`,
+  `${base}images/corporategifts/fleececup.jpg`,
+  `${base}images/corporategifts/dadgown.jpg`,
+  `${base}images/corporategifts/thermalmug.jpg`,
 ];
 
 export default function CorporateGifts() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,6 +26,7 @@ export default function CorporateGifts() {
   };
 
   const handleSubmit = async (e) => {
+    setIsSubmitting(true);
     e.preventDefault();
 
     try {
@@ -45,6 +48,8 @@ export default function CorporateGifts() {
     } catch (err) {
       console.error("Submission error", err);
       alert("Something went wrong. Try again later.");
+      } finally {
+    setIsSubmitting(false);
     }
   };
 
@@ -116,11 +121,12 @@ export default function CorporateGifts() {
             className="border p-2 rounded"
           />
           <button
-            type="submit"
-            className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded"
-          >
-            Submit Interest
-          </button>
+  type="submit"
+  className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+  disabled={isSubmitting}
+>
+  {isSubmitting ? "Submitting..." : "Submit Interest"}
+</button>
         </form>
       </div>
 

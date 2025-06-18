@@ -6,13 +6,14 @@ import Footer from "../components/Footer";
 const base = import.meta.env.BASE_URL;
 
 const images = [
-  `${base}images/homedecor/decor1.jpg`,
-  `${base}images/homedecor/decor2.jpg`,
-  `${base}images/homedecor/decor3.jpg`,
-  `${base}images/homedecor/decor4.jpg`,
+  `${base}images/homedecor/framedimage.jpg`,
+  `${base}images/homedecor/framed.jpg`,
+  `${base}images/homedecor/sketch.jpg`,
+  `${base}images/homedecor/facecloths.jpg`,
 ];
 
 export default function HomeDecor() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,6 +25,7 @@ export default function HomeDecor() {
   };
 
   const handleSubmit = async (e) => {
+    setIsSubmitting(true);
     e.preventDefault();
 
     try {
@@ -45,6 +47,8 @@ export default function HomeDecor() {
     } catch (err) {
       console.error("Submission error", err);
       alert("Something went wrong. Try again later.");
+      } finally {
+    setIsSubmitting(false);
     }
   };
 
@@ -115,12 +119,13 @@ export default function HomeDecor() {
             onChange={handleChange}
             className="border p-2 rounded"
           />
-          <button
-            type="submit"
-            className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded"
-          >
-            Submit Interest
-          </button>
+                    <button
+  type="submit"
+  className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+  disabled={isSubmitting}
+>
+  {isSubmitting ? "Submitting..." : "Submit Interest"}
+</button>
         </form>
       </div>
 

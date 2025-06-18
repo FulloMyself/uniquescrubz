@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Footer from "../components/Footer";
-import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
 const base = import.meta.env.BASE_URL;

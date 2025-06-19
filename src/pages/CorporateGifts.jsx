@@ -11,6 +11,7 @@ const images = [
   `${base}images/corporategifts/fleececup.jpg`,
   `${base}images/corporategifts/dadgown.jpg`,
   `${base}images/corporategifts/thermalmug.jpg`,
+  `${base}images/corporategifts/FathersDay.jpg`,
 ];
 
 export default function CorporateGifts() {
@@ -36,7 +37,7 @@ export default function CorporateGifts() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: "Corporate Gift Inquiry",
+          phone: "Gift Inquiry",
           message: formData.interest,
         }),
       });
@@ -68,7 +69,7 @@ export default function CorporateGifts() {
       <div className="pt-28 px-6 max-w-4xl mx-auto text-center">
         <h1 className="text-3xl font-bold mb-6">Corporate Gifts</h1>
         <p className="mb-6">
-          We supply high-quality corporate gifts for all occasions including Father's Day, Mother's Day, Valentine's Day, and more.
+          We supply high-quality gifts for all occasions including Father's Day, Mother's Day, Valentine's Day, and more.
         </p>
       </div>
 

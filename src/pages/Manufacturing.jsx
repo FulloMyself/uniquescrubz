@@ -19,6 +19,8 @@ const images = [
   `${base}images/manufacturing/man_two_piece.jpg`,
   `${base}images/manufacturing/patterned_dresses.jpg`,
   `${base}images/manufacturing/kitchen_dress.jpg`,
+  `${base}images/manufacturing/Scrubs.jpg`,
+  `${base}images/manufacturing/Purple_Scrubs.jpg`,
 ];
 
 export default function Manufacturing() {

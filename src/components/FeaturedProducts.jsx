@@ -84,18 +84,37 @@ export default function FeaturedProducts({
         {filtered.map(product => (
           <div
             key={product.id}
-            className="bg-white rounded-xl shadow p-6 hover:shadow-xl transition cursor-pointer"
+            className="rounded-xl shadow p-6 hover:shadow-xl transition cursor-pointer flex flex-col items-center"
+            style={{
+              background: "#caa92a",
+              borderRadius: "0.5rem",
+              boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
+            }}
             onClick={() => setSelectedProduct(product)}
           >
-            <img src={product.image} alt={product.name} className="w-48 h-48 object-cover mb-4 rounded" />
-            <h3 className="text-lg font-semibold text-gray-700">{product.name}</h3>
-            <p className="text-gold font-bold text-lg mb-2">R{product.price}</p>
+            <div className="w-full flex justify-center items-center mb-4">
+              <img
+                src={product.image}
+                alt={product.name}
+                style={{
+                  width: "100%",
+                  height: "220px",
+                  objectFit: "contain",
+                  background: "#caa92a",
+                  borderRadius: "0.5rem"
+                }}
+                className="transition-transform duration-300 hover:scale-105"
+                draggable="true"
+              />
+            </div>
+            <h3 className="text-lg font-semibold text-gray-700 text-center">{product.name}</h3>
+            <p className="text-gold font-bold text-lg mb-2 text-center">R{product.price}</p>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 addToCart(product);
               }}
-              className="bg-gold text-black px-6 py-2 rounded-full hover:bg-black hover:text-gold transition"
+              className="bg-gold text-black px-6 py-2 rounded-full hover:bg-black hover:text-gold transition w-full"
             >
               Add to Cart
             </button>
@@ -122,7 +141,14 @@ export default function FeaturedProducts({
             <img
               src={selectedProduct.image}
               alt={selectedProduct.name}
-              className="w-full h-64 object-cover rounded mb-4"
+              style={{
+                width: "100%",
+                height: "220px",
+                objectFit: "contain",
+                background: "#caa92a",
+                borderRadius: "0.5rem"
+              }}
+              className="mb-4"
             />
             <h2 className="text-xl font-bold mb-2">{selectedProduct.name}</h2>
             <p className="text-gray-700 mb-4">

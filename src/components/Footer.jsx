@@ -25,8 +25,8 @@ export default function Footer() {
 
         <div className="text-center md:text-left">
           <h4 className="font-bold mb-2">Contact Info</h4>
-          <p>Email: info@uniquescrubz.co.za</p>
-          <p>Phone: +27 61 234 5678</p>
+          <p>Email: admin@uniqueclothing.co.za</p>
+          <p>Phone: +27 79 885 6271</p>
         </div>
 
         <div className="flex space-x-4">
@@ -35,9 +35,6 @@ export default function Footer() {
           </a>
           <a href="https://instagram.com/unique_scrubs_za" target="_blank" rel="noopener noreferrer">
             <FaInstagram className="hover:text-pink-500 transition text-xl" />
-          </a>
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-            <FaTwitter className="hover:text-pink-500 transition text-xl" />
           </a>
         </div>
       </div>

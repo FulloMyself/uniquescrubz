@@ -108,7 +108,7 @@ export default function Manufacturing() {
     src={img}
     alt={`Work ${index + 1}`}
     className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"
-    style={{ objectPosition: "center top" }} 
+    style={{ objectPosition: "center 30%" }} 
     draggable="true"
     onClick={(e) => e.preventDefault()}
   />

@@ -1,7 +1,5 @@
 // src/pages/Manufacturing.jsx
 import React, { useState } from "react";
-import Lightbox from "react-image-lightbox";
-import "react-image-lightbox/style.css";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/Footer";
@@ -101,7 +99,7 @@ export default function Manufacturing() {
               src={img}
               alt=""
               style={{
-                cursor: "pointer",
+                cursor: "not-allowed",
                 width: "100%",
                 height: "200px",
                 objectFit: "contain",
@@ -113,7 +111,7 @@ export default function Manufacturing() {
               draggable="true"
               onClick={(e) => {
                 e.preventDefault();
-                toast.info("Right click on the image for a full preview.", {
+                toast.info("To view image options, please right click on the image.", {
                   position: "top-center",
                   autoClose: 2500,
                   hideProgressBar: false,
@@ -124,33 +122,9 @@ export default function Manufacturing() {
                   theme: "colored",
                 });
               }}
-              onContextMenu={(e) => {
-                e.preventDefault();
-                setPhotoIndex(idx);
-                setIsOpen(true);
-              }}
             />
           ))}
         </div>
-        {isOpen && (
-          <Lightbox
-            mainSrc={images[photoIndex]}
-            nextSrc={images[(photoIndex + 1) % images.length]}
-            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-            onCloseRequest={() => setIsOpen(false)}
-            onMovePrevRequest={() =>
-              setPhotoIndex((photoIndex + images.length - 1) % images.length)
-            }
-            onMoveNextRequest={() =>
-              setPhotoIndex((photoIndex + 1) % images.length)
-            }
-            imageCaption={`Work ${photoIndex + 1}`}
-            reactModalStyle={{
-              overlay: { backgroundColor: "rgba(30, 20, 5, 0.95)", zIndex: 1000 },
-              content: { borderRadius: "1.5rem", background: "#fffbe6" }
-            }}
-          />
-        )}
         <ToastContainer />
       </div>
 

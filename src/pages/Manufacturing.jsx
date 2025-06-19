@@ -131,11 +131,11 @@ export default function Manufacturing() {
       {/* Video Preview */}
       <div className="mt-16 px-6 max-w-3xl mx-auto">
         <h2 className="text-xl font-semibold mb-3 text-center">Video Preview</h2>
-        <video
-          src={`${base}images/manufacturing/poodle_in_dress.mp4`}
-          controls
-          className="w-full rounded shadow-lg"
-        />
+        const [videoIndex, setVideoIndex] = useState(0);
+        const videos = [
+          `${base}videos/poodle_in_dress.mp4`,
+          `${base}videos/manufacturing/uniquescrubs.mp4`
+                      ];
       </div>
 
       <Footer />

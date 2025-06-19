@@ -33,6 +33,12 @@ export default function Manufacturing() {
     phone: "",
     message: "",
   });
+  const [videoIndex, setVideoIndex] = useState(0);
+
+  const videos = [
+    `${base}videos/manufacturing1.mp4`,
+    `${base}videos/manufacturing2.mp4`
+  ];
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -129,14 +135,32 @@ export default function Manufacturing() {
       </div>
 
       {/* Video Preview */}
-      <div className="mt-16 px-6 max-w-3xl mx-auto">
-        <h2 className="text-xl font-semibold mb-3 text-center">Video Preview</h2>
-        const [videoIndex, setVideoIndex] = useState(0);
-        const videos = [
-          `${base}videos/poodle_in_dress.mp4`,
-          `${base}videos/manufacturing/uniquescrubs.mp4`
-                      ];
+      <div className="mt-16 flex flex-col items-center">
+      <video
+        key={videoIndex}
+        controls
+        width="640"
+        height="360"
+        style={{ borderRadius: "1rem", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
+      >
+        <source src={videos[videoIndex]} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div className="mt-4 flex gap-4">
+        <button
+          onClick={() => setVideoIndex(0)}
+          className={`px-4 py-2 rounded ${videoIndex === 0 ? "bg-gold text-black" : "bg-gray-200"}`}
+        >
+          Video 1
+        </button>
+        <button
+          onClick={() => setVideoIndex(1)}
+          className={`px-4 py-2 rounded ${videoIndex === 1 ? "bg-gold text-black" : "bg-gray-200"}`}
+        >
+          Video 2
+        </button>
       </div>
+    </div>
 
       <Footer />
     </div>

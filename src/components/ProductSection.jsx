@@ -253,7 +253,7 @@ export default function ProductSection({
   </button>
   <h3 className="text-lg font-semibold text-gray-700">{product.name}</h3>
   <p className="text-sm text-gray-600 mb-2">{product.description}</p>
-  <p className="text-gold font-bold text-lg mb-2">R{product.price}</p>
+  <p className="text-black font-bold text-lg mb-2">R{product.price}</p>
 
   {/* Size Dropdown */}
   <select
@@ -340,7 +340,7 @@ export default function ProductSection({
             />
             <h2 className="text-xl font-bold mb-2">{selectedProduct.name}</h2>
             <p className="text-gray-700 mb-4">{selectedProduct.description}</p>
-            <p className="text-gold font-semibold text-lg mb-4">R{selectedProduct.price}</p>
+            <p className="text-black font-semibold text-lg mb-4">R{selectedProduct.price}</p>
             <button
               onClick={() => {
                 addToCart(selectedProduct);

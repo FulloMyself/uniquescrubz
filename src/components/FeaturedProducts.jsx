@@ -108,7 +108,7 @@ export default function FeaturedProducts({
               />
             </div>
             <h3 className="text-lg font-semibold text-gray-700 text-center">{product.name}</h3>
-            <p className="text-gold font-bold text-lg mb-2 text-center">R{product.price}</p>
+            <p className="text-black font-bold text-lg mb-2 text-center">R{product.price}</p>
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -154,7 +154,7 @@ export default function FeaturedProducts({
             <p className="text-gray-700 mb-4">
               {selectedProduct.description || 'High-quality scrub with elegant design and comfort.'}
             </p>
-            <p className="text-gold font-semibold text-lg mb-4">R{selectedProduct.price}</p>
+            <p className="text-black font-semibold text-lg mb-4">R{selectedProduct.price}</p>
             <button
               onClick={() => addToCart(selectedProduct)}
               className="bg-black text-gold px-4 py-2 rounded-full hover:bg-gold hover:text-black border border-gold transition"

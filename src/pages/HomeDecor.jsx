@@ -1,6 +1,8 @@
 // src/pages/HomeDecor.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/Footer";
 
 const base = import.meta.env.BASE_URL;
@@ -28,7 +30,7 @@ export default function HomeDecor() {
     setIsSubmitting(true);
     e.preventDefault();
 
-        try {
+    try {
       const res = await fetch("https://email-server-5l9g.onrender.com/send-manufacturing-booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -52,8 +54,8 @@ export default function HomeDecor() {
     } catch (err) {
       console.error("Submission error", err);
       alert("Something went wrong. Try again later.");
-      } finally {
-    setIsSubmitting(false);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -75,22 +77,39 @@ export default function HomeDecor() {
       <div className="max-w-6xl mx-auto px-4 mt-8">
         <h2 className="text-2xl font-bold mb-6 text-center">Decor Gallery</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {images.map((img, index) => (
-            <div
-              key={index}
-              className="overflow-hidden rounded shadow-lg group hover:shadow-2xl transition"
-              style={{ pointerEvents: "auto" }}
-            >
-              <img
-                src={img}
-                alt={`Decor item ${index + 1}`}
-                className="w-full h-56 object-cover transition-transform duration-300 group-hover:scale-105"
-                draggable="true"
-                onClick={(e) => e.preventDefault()}
-              />
-            </div>
+          {images.map((img, idx) => (
+            <img
+              key={idx}
+              src={img}
+              alt=""
+              style={{
+                cursor: "not-allowed",
+                width: "100%",
+                height: "200px",
+                objectFit: "contain",
+                background: "#caa92a",
+                borderRadius: "0.5rem",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
+              }}
+              className="transition-transform duration-300 hover:scale-105"
+              draggable="true"
+              onClick={(e) => {
+                e.preventDefault();
+                toast.info("To view image options, please right click on the image.", {
+                  position: "top-center",
+                  autoClose: 2500,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "dark",
+                });
+              }}
+            />
           ))}
         </div>
+        <ToastContainer />
       </div>
 
       {/* Contact Form */}
@@ -124,13 +143,13 @@ export default function HomeDecor() {
             onChange={handleChange}
             className="border p-2 rounded"
           />
-                    <button
-  type="submit"
-  className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
-  disabled={isSubmitting}
->
-  {isSubmitting ? "Submitting..." : "Submit Interest"}
-</button>
+          <button
+            type="submit"
+            className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Submitting..." : "Submit Interest"}
+          </button>
         </form>
       </div>
 

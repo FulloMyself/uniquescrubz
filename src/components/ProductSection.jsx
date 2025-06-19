@@ -236,7 +236,8 @@ export default function ProductSection({
   boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
   padding: "1rem"
 }}>
-  <button onClick={() => setSelectedProduct(product)} className="focus:outline-none">
+  
+  <button onClick={() => setSelectedProduct(product)} className="focus:outline-none justify-center items-center">
     <img
       src={product.image}
       alt={product.name}

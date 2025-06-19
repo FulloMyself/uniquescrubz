@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import Footer from "../components/Footer";
+import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
 const base = import.meta.env.BASE_URL;
@@ -100,23 +101,46 @@ export default function Manufacturing() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {images.map((img, index) => (
             <div
-  key={index}
-  className="overflow-hidden rounded shadow-lg group hover:shadow-2xl transition"
-  style={{ pointerEvents: "auto" }}
->
-  <img
-    src={img}
-    alt={`Work ${index + 1}`}
-    className="w-full h-56 object-contain bg-white transition-transform duration-300 group-hover:scale-105"
-    style={{ objectPosition: "center", backgroundColor: "#caa92a" }}
-    draggable="true"
-    onClick={(e) => e.preventDefault()}
-  />
-</div>
+              key={index}
+              className="overflow-hidden rounded shadow-lg group hover:shadow-2xl transition"
+              style={{ pointerEvents: "auto" }}
+              onClick={() => {
+                setPhotoIndex(index);
+                setIsOpen(true);
+              }}
+            >
+              <img
+                src={img}
+                alt={`Work ${index + 1}`}
+                className="w-full h-56 object-contain transition-transform duration-300 group-hover:scale-105"
+                style={{ objectPosition: "center", backgroundColor: "#caa92a" }}
+                draggable="true"
+              />
+            </div>
           ))}
         </div>
       </div>
 
+      {/* Elegant Popup Lightbox */}
+      {isOpen && (
+        <Lightbox
+          mainSrc={images[photoIndex]}
+          nextSrc={images[(photoIndex + 1) % images.length]}
+          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+          onCloseRequest={() => setIsOpen(false)}
+          onMovePrevRequest={() =>
+            setPhotoIndex((photoIndex + images.length - 1) % images.length)
+          }
+          onMoveNextRequest={() =>
+            setPhotoIndex((photoIndex + 1) % images.length)
+          }
+          imageCaption={`Work ${photoIndex + 1}`}
+          reactModalStyle={{
+            overlay: { backgroundColor: "rgba(30, 20, 5, 0.95)", zIndex: 1000 },
+            content: { borderRadius: "1.5rem", background: "#fffbe6" }
+          }}
+        />
+      )}
 
       {/* Video Preview */}
       <div className="mt-16 px-6 max-w-3xl mx-auto">

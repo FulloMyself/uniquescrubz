@@ -230,40 +230,53 @@ export default function ProductSection({
       {/* Product Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {paginatedProducts.map((product) => (
-          <div key={product.id} className="bg-white rounded-xl shadow p-6 hover:shadow-xl transition">
-            <button onClick={() => setSelectedProduct(product)} className="focus:outline-none">
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-48 h-48 object-cover mb-4 rounded"
-              />
-            </button>
-            <h3 className="text-lg font-semibold text-gray-700">{product.name}</h3>
-            <p className="text-sm text-gray-600 mb-2">{product.description}</p>
-            <p className="text-gold font-bold text-lg mb-2">R{product.price}</p>
+          <div key={product.id} className="product-card" style={{
+  background: "#caa92a",
+  borderRadius: "0.5rem",
+  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+  padding: "1rem"
+}}>
+  <button onClick={() => setSelectedProduct(product)} className="focus:outline-none">
+    <img
+      src={product.image}
+      alt={product.name}
+      style={{
+        width: "100%",
+        height: "220px",
+        objectFit: "contain",
+        background: "#caa92a",
+        borderRadius: "0.5rem"
+      }}
+      className="transition-transform duration-300 hover:scale-105"
+      draggable="true"
+    />
+  </button>
+  <h3 className="text-lg font-semibold text-gray-700">{product.name}</h3>
+  <p className="text-sm text-gray-600 mb-2">{product.description}</p>
+  <p className="text-gold font-bold text-lg mb-2">R{product.price}</p>
 
-            {/* Size Dropdown */}
-            <select
-              value={selectedSizes[product.id] || ''}
-              onChange={(e) =>
-                setSelectedSizes({ ...selectedSizes, [product.id]: e.target.value })
-              }
-              className="w-full mb-3 border border-gray-300 rounded px-3 py-2"
-            >
-              <option value="">Select Size</option>
-              {product.sizes.map((size) => (
-                <option key={size} value={size}>{size}</option>
-              ))}
-            </select>
+  {/* Size Dropdown */}
+  <select
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) =>
+      setSelectedSizes({ ...selectedSizes, [product.id]: e.target.value })
+    }
+    className="w-full mb-3 border border-gray-300 rounded px-3 py-2"
+  >
+    <option value="">Select Size</option>
+    {product.sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
 
-            {/* Add to Cart */}
-            <button
-              onClick={() => addToCart(product)}
-              className="w-full bg-black text-gold px-4 py-2 rounded-full hover:bg-gold hover:text-black transition border border-gold"
-            >
-              Add to Cart
-            </button>
-          </div>
+  {/* Add to Cart */}
+  <button
+    onClick={() => addToCart(product)}
+    className="w-full bg-black text-gold px-4 py-2 rounded-full hover:bg-gold hover:text-black transition border border-gold"
+  >
+    Add to Cart
+  </button>
+</div>
         ))}
       </div>
 

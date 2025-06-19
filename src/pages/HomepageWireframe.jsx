@@ -91,7 +91,7 @@ export default function HomepageWireframe({ onEnterMall }) {
   <InteractiveBlock
     position={[-6, 0, 0]}
     color="skyblue"
-    text="Scrubs & Uniforms"
+    text="Shop"
     onClick={() => navigate("/shop")}
   />
   <SpinningModel center={[-6, 0, 0]} color="skyblue" />
@@ -99,7 +99,7 @@ export default function HomepageWireframe({ onEnterMall }) {
   <InteractiveBlock
     position={[0, 0, 0]}
     color="gold"
-    text="Manufacturing"
+    text="Gallery"
     onClick={() => navigate("/manufacturing")}
   />
   <SpinningModel center={[0, 0, 0]} color="gold" />

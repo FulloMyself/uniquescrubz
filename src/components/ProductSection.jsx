@@ -209,6 +209,7 @@ export default function ProductSection({
 
   return (
     <section className="py-10">
+      <div id="product-section" className="...">
       {/* Filter Dropdown */}
       <div className="max-w-6xl mx-auto mb-6 flex justify-end">
         <select
@@ -339,6 +340,7 @@ export default function ProductSection({
           </div>
         </div>
       )}
+      </div>
     </section>
   );
 }

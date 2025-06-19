@@ -325,7 +325,7 @@ export default function ProductSection({
           onClick={() => setSelectedProduct(null)}
         >
           <div
-            className="bg-white rounded-lg p-6 max-w-md w-full relative"
+            className="bg-white rounded-lg p-6 max-w-md w-full relative flex flex-col items-center"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -337,11 +337,18 @@ export default function ProductSection({
             <img
               src={selectedProduct.image}
               alt={selectedProduct.name}
-              className="w-full h-64 object-cover rounded mb-4"
+              style={{
+                width: "100%",
+                height: "220px",
+                objectFit: "contain",
+                background: "#caa92a",
+                borderRadius: "0.5rem"
+              }}
+              className="mb-4 mx-auto"
             />
-            <h2 className="text-xl font-bold mb-2">{selectedProduct.name}</h2>
-            <p className="text-gray-700 mb-4">{selectedProduct.description}</p>
-            <p className="text-black font-semibold text-lg mb-4">R{selectedProduct.price}</p>
+            <h2 className="text-xl font-bold mb-2 text-center w-full">{selectedProduct.name}</h2>
+            <p className="text-gray-700 mb-4 text-center w-full">{selectedProduct.description}</p>
+            <p className="text-black font-semibold text-lg mb-4 text-center w-full">R{selectedProduct.price}</p>
             <button
               onClick={() => {
                 addToCart(selectedProduct);

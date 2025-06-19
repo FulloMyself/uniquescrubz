@@ -150,14 +150,14 @@ export default function FeaturedProducts({
               }}
               className="mb-4"
             />
-            <h2 className="text-xl font-bold mb-2">{selectedProduct.name}</h2>
-            <p className="text-gray-700 mb-4">
+            <h2 className="text-xl font-bold text-center mb-2">{selectedProduct.name}</h2>
+            <p className="text-gray-700 text-center mb-4">
               {selectedProduct.description || 'High-quality scrub with elegant design and comfort.'}
             </p>
-            <p className="text-black font-semibold text-lg mb-4">R{selectedProduct.price}</p>
+            <p className="text-black font-semibold text-lg text-center mb-4">R{selectedProduct.price}</p>
             <button
               onClick={() => addToCart(selectedProduct)}
-              className="bg-black text-gold px-4 py-2 rounded-full hover:bg-gold hover:text-black border border-gold transition"
+              className="bg-black text-gold px-4 py-2 rounded-full hover:bg-gold hover:text-black border border-gold transition w-full"
             >
               Add to Cart
             </button>

@@ -115,7 +115,7 @@ export default function HomepageWireframe({ onEnterMall }) {
   <InteractiveBlock
     position={[-3, 0, -8]}
     color="pink"
-    text="Corporate Gifts"
+    text="Gifts"
     onClick={() => navigate("/corporate-gifts")}
   />
   <SpinningModel center={[-3, 0, -8]} color="pink" />

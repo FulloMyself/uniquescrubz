@@ -34,10 +34,9 @@ export default function Manufacturing() {
     message: "",
   });
   const [videoIndex, setVideoIndex] = useState(0);
-
   const videos = [
-    `${base}videos/manufacturing1.mp4`,
-    `${base}videos/manufacturing2.mp4`
+    `${base}public/images/manufacturing/uniquescrubs.mp4`,
+    `${base}manufacturing/poodle_in_dress.mp4`
   ];
 
   const handleChange = (e) => {

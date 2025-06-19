@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import bannerImg from '/assets/banner.png';
+import bannerImg from '/assets/unique_scrubs_hero.png';
 
 export default function HeroSection() {
   return (

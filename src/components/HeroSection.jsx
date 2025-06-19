@@ -29,6 +29,12 @@ export default function HeroSection() {
             src={bannerImg}
             alt="Scrubz"
             className="rounded-3xl shadow-2xl"
+            style={{
+              width: "100%",
+              height: "350px",
+              objectFit: "contain",
+              background: "#caa92a"
+            }}
           />
         </div>
       </div>

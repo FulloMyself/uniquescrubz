@@ -1,8 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import bannerImg from '/assets/unique_scrubs_hero.png';
 
 export default function HeroSection() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleShopClick = (e) => {
+    if (location.pathname === "/shop") {
+      e.preventDefault();
+      const productSection = document.getElementById("product-section");
+      if (productSection) {
+        productSection.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      navigate("/shop");
+    }
+  };
+
   return (
     <section className="bg-gradient-to-b from-white-100 via-gold-100 to-white py-20">
       <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
@@ -14,13 +29,13 @@ export default function HeroSection() {
           <p className="text-gray-700 text-lg mb-6">
             Discover premium quality scrubs made for comfort and style. Perfect for professionals who care.
           </p>
-          <Link
-            to="/shop"
+          <button
+            type="button"
+            onClick={handleShopClick}
             className="inline-block bg-gold text-black px-6 py-3 rounded-full text-lg font-semibold hover:bg-black hover:text-gold transition"
           >
-          Shop Now
-          </Link>
-
+            Shop Now
+          </button>
         </div>
 
         {/* Image Section */}

@@ -19,7 +19,8 @@ export default function HomeDecor() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    interest: "",
+    phone: "",
+    message: "",
   });
 
   const handleChange = (e) => {
@@ -119,8 +120,10 @@ export default function HomeDecor() {
           <input
             type="text"
             name="name"
+            id="name"
             placeholder="Your Name"
             required
+            autoComplete="name"
             value={formData.name}
             onChange={handleChange}
             className="border p-2 rounded"
@@ -128,18 +131,30 @@ export default function HomeDecor() {
           <input
             type="email"
             name="email"
+            id="email"
             placeholder="Your Email"
             required
+            autoComplete="email"
             value={formData.email}
             onChange={handleChange}
             className="border p-2 rounded"
           />
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            placeholder="Your Phone"
+            autoComplete="tel"
+            value={formData.phone}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
           <textarea
-            name="interest"
-            placeholder="What type of decor are you looking for?"
-            rows={4}
-            required
-            value={formData.interest}
+            name="message"
+            id="message"
+            placeholder="Your Message"
+            autoComplete="off"
+            value={formData.message}
             onChange={handleChange}
             className="border p-2 rounded"
           />

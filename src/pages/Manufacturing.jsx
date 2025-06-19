@@ -77,10 +77,47 @@ export default function Manufacturing() {
         <h1 className="text-3xl font-bold mb-6">Book a Manufacturing Appointment</h1>
         <p className="mb-4">Please fill out the form below to schedule a consultation about your manufacturing needs.</p>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <input name="name" required placeholder="Full Name" value={formData.name} onChange={handleChange} className="border p-2 rounded" />
-          <input name="email" required type="email" placeholder="Email Address" value={formData.email} onChange={handleChange} className="border p-2 rounded" />
-          <input name="phone" required placeholder="Phone Number" value={formData.phone} onChange={handleChange} className="border p-2 rounded" />
-          <textarea name="message" required rows={5} placeholder="Describe your manufacturing needs" value={formData.message} onChange={handleChange} className="border p-2 rounded" />
+          <input
+    type="text"
+    name="name"
+    id="name"
+    placeholder="Your Name"
+    required
+    autoComplete="name"
+    value={formData.name}
+    onChange={handleChange}
+    className="border p-2 rounded"
+  />
+  <input
+    type="email"
+    name="email"
+    id="email"
+    placeholder="Your Email"
+    required
+    autoComplete="email"
+    value={formData.email}
+    onChange={handleChange}
+    className="border p-2 rounded"
+  />
+  <input
+    type="tel"
+    name="phone"
+    id="phone"
+    placeholder="Your Phone"
+    autoComplete="tel"
+    value={formData.phone}
+    onChange={handleChange}
+    className="border p-2 rounded"
+  />
+  <textarea
+    name="message"
+    id="message"
+    placeholder="Your Message"
+    autoComplete="off"
+    value={formData.message}
+    onChange={handleChange}
+    className="border p-2 rounded"
+  />
           <button
   type="submit"
   className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}

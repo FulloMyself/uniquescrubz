@@ -1,9 +1,10 @@
 // src/pages/Manufacturing.jsx
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import Footer from "../components/Footer";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Footer from "../components/Footer";
 
 const base = import.meta.env.BASE_URL;
 
@@ -67,12 +68,7 @@ export default function Manufacturing() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -30 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div>
       {/* Booking Form */}
       <div className="pt-28 px-6 max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Book a Manufacturing Appointment</h1>
@@ -104,10 +100,6 @@ export default function Manufacturing() {
               key={idx}
               src={img}
               alt=""
-              onClick={() => {
-                setPhotoIndex(idx);
-                setIsOpen(true);
-              }}
               style={{
                 cursor: "pointer",
                 width: "100%",
@@ -119,6 +111,24 @@ export default function Manufacturing() {
               }}
               className="transition-transform duration-300 hover:scale-105"
               draggable="true"
+              onClick={(e) => {
+                e.preventDefault();
+                toast.info("Right click on the image for a full preview.", {
+                  position: "top-center",
+                  autoClose: 2500,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  theme: "colored",
+                });
+              }}
+              onContextMenu={(e) => {
+                e.preventDefault();
+                setPhotoIndex(idx);
+                setIsOpen(true);
+              }}
             />
           ))}
         </div>
@@ -141,6 +151,7 @@ export default function Manufacturing() {
             }}
           />
         )}
+        <ToastContainer />
       </div>
 
       {/* Video Preview */}
@@ -154,6 +165,6 @@ export default function Manufacturing() {
       </div>
 
       <Footer />
-    </motion.div>
+    </div>
   );
 }

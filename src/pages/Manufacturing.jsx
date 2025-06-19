@@ -99,48 +99,49 @@ export default function Manufacturing() {
       <div className="max-w-6xl mx-auto px-4">
         <h2 className="text-2xl font-bold mb-6 text-center">Our Previous Work</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {images.map((img, index) => (
-            <div
-              key={index}
-              className="overflow-hidden rounded shadow-lg group hover:shadow-2xl transition"
-              style={{ pointerEvents: "auto" }}
+          {images.map((img, idx) => (
+            <img
+              key={idx}
+              src={img}
+              alt=""
               onClick={() => {
-                setPhotoIndex(index);
+                setPhotoIndex(idx);
                 setIsOpen(true);
               }}
-            >
-              <img
-                src={img}
-                alt={`Work ${index + 1}`}
-                className="w-full h-56 object-contain transition-transform duration-300 group-hover:scale-105"
-                style={{ objectPosition: "center", backgroundColor: "#caa92a" }}
-                draggable="true"
-              />
-            </div>
+              style={{
+                cursor: "pointer",
+                width: "100%",
+                height: "200px",
+                objectFit: "contain",
+                background: "#caa92a",
+                borderRadius: "0.5rem",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
+              }}
+              className="transition-transform duration-300 hover:scale-105"
+              draggable="true"
+            />
           ))}
         </div>
+        {isOpen && (
+          <Lightbox
+            mainSrc={images[photoIndex]}
+            nextSrc={images[(photoIndex + 1) % images.length]}
+            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+            onCloseRequest={() => setIsOpen(false)}
+            onMovePrevRequest={() =>
+              setPhotoIndex((photoIndex + images.length - 1) % images.length)
+            }
+            onMoveNextRequest={() =>
+              setPhotoIndex((photoIndex + 1) % images.length)
+            }
+            imageCaption={`Work ${photoIndex + 1}`}
+            reactModalStyle={{
+              overlay: { backgroundColor: "rgba(30, 20, 5, 0.95)", zIndex: 1000 },
+              content: { borderRadius: "1.5rem", background: "#fffbe6" }
+            }}
+          />
+        )}
       </div>
-
-      {/* Elegant Popup Lightbox */}
-      {isOpen && (
-        <Lightbox
-          mainSrc={images[photoIndex]}
-          nextSrc={images[(photoIndex + 1) % images.length]}
-          prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-          onCloseRequest={() => setIsOpen(false)}
-          onMovePrevRequest={() =>
-            setPhotoIndex((photoIndex + images.length - 1) % images.length)
-          }
-          onMoveNextRequest={() =>
-            setPhotoIndex((photoIndex + 1) % images.length)
-          }
-          imageCaption={`Work ${photoIndex + 1}`}
-          reactModalStyle={{
-            overlay: { backgroundColor: "rgba(30, 20, 5, 0.95)", zIndex: 1000 },
-            content: { borderRadius: "1.5rem", background: "#fffbe6" }
-          }}
-        />
-      )}
 
       {/* Video Preview */}
       <div className="mt-16 px-6 max-w-3xl mx-auto">

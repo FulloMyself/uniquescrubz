@@ -40,7 +40,7 @@ export default function CorporateGifts() {
           name: formData.name,
           email: formData.email,
           phone: "Gift Inquiry",
-          message: formData.interest,
+          message: formData.message,
         }),
       });
 
@@ -48,7 +48,7 @@ export default function CorporateGifts() {
 
       if (res.ok) {
         alert("Thank you for your interest. We'll be in touch soon.");
-        setFormData({ name: "", email: "", interest: "" });
+        setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
         alert("Failed to send your interest. Please try again later.");
         console.error("Error:", result);

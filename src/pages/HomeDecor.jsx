@@ -39,7 +39,7 @@ export default function HomeDecor() {
           name: formData.name,
           email: formData.email,
           phone: "Home Decor Inquiry",
-          message: formData.interest,
+          message: formData.message,
         }),
       });
 
@@ -47,7 +47,7 @@ export default function HomeDecor() {
 
       if (res.ok) {
         alert("Thank you for your interest. We'll be in touch soon.");
-        setFormData({ name: "", email: "", interest: "" });
+        setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
         alert("Failed to send your interest. Please try again later.");
         console.error("Error:", result);

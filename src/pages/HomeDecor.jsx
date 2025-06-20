@@ -38,7 +38,7 @@ export default function HomeDecor() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: "Home Decor Inquiry",
+          phone: formData.phone + " (Home Decor Inquiry)",
           message: formData.message,
         }),
       });

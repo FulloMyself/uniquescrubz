@@ -39,7 +39,7 @@ export default function CorporateGifts() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: "Gift Inquiry",
+          phone: formData.phone + " (Gift Inquiry)",
           message: formData.message,
         }),
       });
@@ -47,7 +47,7 @@ export default function CorporateGifts() {
       const result = await res.json();
 
       if (res.ok) {
-        alert("Thank you for your interest. We'll be in touch soon.");
+        alert("Thank you for your interest in our Gifts. We'll be in touch soon.");
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
         alert("Failed to send your interest. Please try again later.");

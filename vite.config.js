@@ -10,7 +10,7 @@ export default defineConfig({
     'process.env': {},
   },
   // Replace 'your-repo-name' with your actual repository name
-  base: '/uniquescrubz/',
+  base: '/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

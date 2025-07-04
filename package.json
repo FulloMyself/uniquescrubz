@@ -16,6 +16,7 @@
     "@react-three/drei": "^9.80.9",
     "@react-three/fiber": "^8.13.7",
     "@vitejs/plugin-react": "^4.4.1",
+    "cors": "^2.8.5",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^12.16.0",
     "framer-motion-3d": "^12.4.13",

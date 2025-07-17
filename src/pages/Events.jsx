@@ -1,8 +1,6 @@
 // src/pages/Events.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/Footer";
 
 const base = import.meta.env.BASE_URL;
@@ -20,6 +18,9 @@ export default function Events() {
     message: "",
   });
 
+  // ✅ NEW: Selected image state for popup modal
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -29,21 +30,26 @@ export default function Events() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://email-server-5l9g.onrender.com/send-manufacturing-booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone + " (Events Inquiry)",
-          message: formData.message,
-        }),
-      });
+      const res = await fetch(
+        "https://email-server-5l9g.onrender.com/send-manufacturing-booking",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone + " (Events Inquiry)",
+            message: formData.message,
+          }),
+        }
+      );
 
       const result = await res.json();
 
       if (res.ok) {
-        alert("Thank you for your interest in our Events. We'll be in touch soon.");
+        alert(
+          "Thank you for your interest in our Events. We'll be in touch soon."
+        );
         setFormData({ name: "", email: "", phone: "", message: "" });
       } else {
         alert("Failed to send your interest. Please try again later.");
@@ -67,52 +73,79 @@ export default function Events() {
       <div className="pt-28 px-6 max-w-4xl mx-auto text-center">
         <h1 className="text-3xl font-bold mb-6">Unique Scrubz Events</h1>
         <p className="mb-6">
-          Stay updated on our exciting events – from fashion shows and product launches to workshops and pop-up shops.
+          Stay updated on our exciting events – from fashion shows and product
+          launches to workshops and pop-up shops.
         </p>
       </div>
 
-      {/* Gallery Grid */}
+      {/* ✅ Gallery Grid */}
       <div className="max-w-6xl mx-auto px-4 mt-8">
-        <h2 className="text-2xl font-bold mb-6 text-center">Past & Upcoming Events</h2>
+        <h2 className="text-2xl font-bold mb-6 text-center">
+          Past & Upcoming Events
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {images.map((img, idx) => (
-            <img
+            <button
               key={idx}
-              src={img}
-              alt=""
-              style={{
-                cursor: "not-allowed",
-                width: "100%",
-                height: "200px",
-                objectFit: "cover",
-                background: "#caa92a",
-                borderRadius: "0.5rem",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-              }}
-              className="transition-transform duration-300 hover:scale-105"
-              draggable="true"
-              onClick={(e) => {
-                e.preventDefault();
-                toast.info("To view image options, please right click on the image.", {
-                  position: "top-center",
-                  autoClose: 2500,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "dark",
-                });
-              }}
-            />
+              onClick={() => setSelectedImage(img)}
+              className="focus:outline-none"
+            >
+              <img
+                src={img}
+                alt={`Event ${idx + 1}`}
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                  background: "#caa92a",
+                  borderRadius: "0.5rem",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                  cursor: "pointer",
+                }}
+                className="transition-transform duration-300 hover:scale-105"
+                draggable="false"
+              />
+            </button>
           ))}
         </div>
-        <ToastContainer />
       </div>
+
+      {/* ✅ Popup Modal for Image */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="bg-white rounded-lg p-4 max-w-3xl w-full relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl"
+            >
+              ✕
+            </button>
+            <img
+              src={selectedImage}
+              alt="Event Large View"
+              className="rounded-md mx-auto"
+              style={{
+                width: "100%",
+                maxHeight: "80vh",
+                objectFit: "contain",
+                background: "#caa92a",
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Contact Form */}
       <div className="mt-16 px-6 max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold mb-4 text-center">Show Your Interest</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">
+          Show Your Interest
+        </h2>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <input
             type="text"

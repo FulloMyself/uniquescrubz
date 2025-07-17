@@ -16,17 +16,17 @@ import GrayFullScrubsImg from '/assets/GrayFull_Scrubs.jpeg';
 
 export default function ProductSection({
   setCartItems,
-  selectedColor = 'All',
-  selectedTag = 'All',
-  selectedType = 'All',
-  searchQuery = '',
-  sortOrder = 'default',
+  selectedColor = "All",
+  selectedTag = "All",
+  selectedType = "All",
+  searchQuery = "",
+  sortOrder = "default",
   currentPage = 1,
   setCurrentPage,
 }) {
   const [selectedProduct, setSelectedProduct] = React.useState(null);
   const [selectedSizes, setSelectedSizes] = React.useState({});
-  const [selectedProductType, setSelectedProductType] = React.useState('All');
+  const [selectedProductType, setSelectedProductType] = React.useState("All");
 
   const products = [
     {
@@ -164,18 +164,27 @@ export default function ProductSection({
   ];
 
   const filteredProducts = products
-    .filter(product => {
-      const colorMatch = selectedColor === 'All' || (Array.isArray(product.color)
-    ? product.color.includes(selectedColor)
-    : product.color === selectedColor);
-      const tagMatch = selectedTag === 'All' || product.tags.includes(selectedTag);
-      const typeMatch = selectedType === 'All' || product.type === selectedType;
-      const searchMatch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+    .filter((product) => {
+      const colorMatch =
+        selectedColor === "All"
+          ? true
+          : Array.isArray(product.color)
+          ? product.color.includes(selectedColor)
+          : product.color === selectedColor;
+
+      const tagMatch =
+        selectedTag === "All" || product.tags.includes(selectedTag);
+      const typeMatch =
+        selectedType === "All" || product.type === selectedType;
+      const searchMatch = product.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
       return colorMatch && tagMatch && typeMatch && searchMatch;
     })
     .sort((a, b) => {
-      if (sortOrder === 'lowToHigh') return a.numericPrice - b.numericPrice;
-      if (sortOrder === 'highToLow') return b.numericPrice - a.numericPrice;
+      if (sortOrder === "lowToHigh") return a.numericPrice - b.numericPrice;
+      if (sortOrder === "highToLow") return b.numericPrice - a.numericPrice;
       return a.name.localeCompare(b.name);
     });
 
@@ -189,14 +198,16 @@ export default function ProductSection({
   const addToCart = (product) => {
     const selectedSize = selectedSizes[product.id];
     if (!selectedSize) {
-      toast.error('Please select a size before adding to cart.');
+      toast.error("Please select a size before adding to cart.");
       return;
     }
 
-    setCartItems(prev => {
-      const exists = prev.find(item => item.id === product.id && item.size === selectedSize);
+    setCartItems((prev) => {
+      const exists = prev.find(
+        (item) => item.id === product.id && item.size === selectedSize
+      );
       return exists
-        ? prev.map(item =>
+        ? prev.map((item) =>
             item.id === product.id && item.size === selectedSize
               ? { ...item, quantity: item.quantity + 1 }
               : item
@@ -210,157 +221,203 @@ export default function ProductSection({
   return (
     <section className="py-10">
       <div id="product-section" className="...">
-      {/* Filter Dropdown */}
-      <div className="max-w-6xl mx-auto mb-6 flex justify-end">
-        <select
-          value={selectedProductType}
-          onChange={(e) => {
-            setSelectedProductType(e.target.value);
-            setCurrentPage(1);
-          }}
-          className="border border-gray-300 rounded px-4 py-2"
-        >
-          <option value="All">All Product Types</option>
-          <option value="Top">Tops</option>
-          <option value="Pants">Pants</option>
-          <option value="Set">Scrub Sets</option>
-        </select>
-      </div>
+        {/* ✅ Filter Dropdown */}
+        <div className="max-w-6xl mx-auto mb-6 flex justify-end">
+          <select
+            value={selectedProductType}
+            onChange={(e) => {
+              setSelectedProductType(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="border border-gray-300 rounded px-4 py-2"
+          >
+            <option value="All">All Product Types</option>
+            <option value="Top">Tops</option>
+            <option value="Pants">Pants</option>
+            <option value="Set">Scrub Sets</option>
+          </select>
+        </div>
 
-      {/* Product Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        {paginatedProducts.map((product) => (
-          <div key={product.id} className="product-card flex flex-col items-center" style={{
-            background: "#caa92a",
-            borderRadius: "0.5rem",
-            boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-            padding: "1rem"
-          }}>
-            <button onClick={() => setSelectedProduct(product)} className="focus:outline-none flex justify-center items-center w-full mb-2">
+        {/* ✅ Product Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {paginatedProducts.map((product) => (
+            <div
+              key={product.id}
+              className="product-card flex flex-col items-center"
+              style={{
+                background: "#caa92a",
+                borderRadius: "0.5rem",
+                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                padding: "1rem",
+              }}
+            >
+              <button
+                onClick={() => setSelectedProduct(product)}
+                className="focus:outline-none flex justify-center items-center w-full mb-2"
+              >
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  style={{
+                    width: "100%",
+                    height: "220px",
+                    objectFit: "contain",
+                    background: "#caa92a",
+                    borderRadius: "0.5rem",
+                    display: "block",
+                  }}
+                  className="transition-transform duration-300 hover:scale-105 mx-auto"
+                  draggable="false"
+                />
+              </button>
+              <h3 className="text-lg font-semibold text-gray-700 text-center">
+                {product.name}
+              </h3>
+              <p className="text-sm text-gray-600 text-center mb-2">
+                {product.description}
+              </p>
+              <p className="text-black font-bold text-lg text-center mb-2">
+                R{product.price}
+              </p>
+
+              {/* Size Dropdown (on card) */}
+              <select
+                value={selectedSizes[product.id] || ""}
+                onChange={(e) =>
+                  setSelectedSizes({
+                    ...selectedSizes,
+                    [product.id]: e.target.value,
+                  })
+                }
+                className="w-full mb-3 border border-gray-300 rounded px-3 py-2"
+              >
+                <option value="">Select Size</option>
+                {product.sizes.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
+
+              <button
+                onClick={() => addToCart(product)}
+                className="w-full bg-black text-gold px-4 py-2 rounded-full hover:bg-gold hover:text-black transition border border-gold"
+              >
+                Add to Cart
+              </button>
+            </div>
+          ))}
+        </div>
+
+        {/* ✅ Pagination (unchanged) */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center mt-8 space-x-2">
+            <button
+              onClick={() => setCurrentPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`px-4 py-2 rounded-full ${
+                currentPage === 1
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-100 hover:bg-gold"
+              }`}
+            >
+              Prev
+            </button>
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`px-4 py-2 rounded-full ${
+                  currentPage === i + 1
+                    ? "bg-black text-gold"
+                    : "bg-gray-200 text-gray-800 hover:bg-gold"
+                } transition`}
+              >
+                {i + 1}
+              </button>
+            ))}
+            <button
+              onClick={() => setCurrentPage(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={`px-4 py-2 rounded-full ${
+                currentPage === totalPages
+                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  : "bg-gray-100 hover:bg-gold text-black"
+              }`}
+            >
+              Next
+            </button>
+          </div>
+        )}
+
+        {/* ✅ Product Popup Modal */}
+        {selectedProduct && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            onClick={() => setSelectedProduct(null)}
+          >
+            <div
+              className="bg-white rounded-lg p-6 max-w-md w-full relative flex flex-col items-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button
+                onClick={() => setSelectedProduct(null)}
+                className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+              >
+                ✕
+              </button>
               <img
-                src={product.image}
-                alt={product.name}
+                src={selectedProduct.image}
+                alt={selectedProduct.name}
+                className="mb-4 rounded-md"
                 style={{
                   width: "100%",
                   height: "220px",
                   objectFit: "contain",
                   background: "#caa92a",
-                  borderRadius: "0.5rem",
-                  display: "block"
                 }}
-                className="transition-transform duration-300 hover:scale-105 mx-auto"
-                draggable="true"
               />
-            </button>
-            <h3 className="text-lg font-semibold text-gray-700 text-center">{product.name}</h3>
-            <p className="text-sm text-gray-600 text-center mb-2">{product.description}</p>
-            <p className="text-black font-bold text-lg text-center mb-2">R{product.price}</p>
+              <h2 className="text-xl font-bold mb-2 text-center">
+                {selectedProduct.name}
+              </h2>
+              <p className="text-gray-700 mb-4 text-center">
+                {selectedProduct.description}
+              </p>
+              <p className="text-black font-semibold text-lg mb-4 text-center">
+                R{selectedProduct.price}
+              </p>
 
-            {/* Size Dropdown */}
-            <select
-              value={selectedSizes[product.id] || ''}
-              onChange={(e) =>
-                setSelectedSizes({ ...selectedSizes, [product.id]: e.target.value })
-              }
-              className="w-full mb-3 border border-gray-300 rounded px-3 py-2"
-            >
-              <option value="">Select Size</option>
-              {product.sizes.map((size) => (
-                <option key={size} value={size}>{size}</option>
-              ))}
-            </select>
+              {/* ✅ Size Dropdown inside Modal */}
+              <select
+                value={selectedSizes[selectedProduct.id] || ""}
+                onChange={(e) =>
+                  setSelectedSizes({
+                    ...selectedSizes,
+                    [selectedProduct.id]: e.target.value,
+                  })
+                }
+                className="w-full mb-3 border border-gray-300 rounded px-3 py-2"
+              >
+                <option value="">Select Size</option>
+                {selectedProduct.sizes.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
 
-            {/* Add to Cart */}
-            <button
-              onClick={() => addToCart(product)}
-              className="w-full bg-black text-gold px-4 py-2 rounded-full hover:bg-gold hover:text-black transition border border-gold"
-            >
-              Add to Cart
-            </button>
+              <button
+                onClick={() => {
+                  addToCart(selectedProduct);
+                  setSelectedProduct(null);
+                }}
+                className="bg-black text-gold px-4 py-2 rounded-full hover:bg-gold hover:text-black border border-gold transition w-full"
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
-        ))}
-      </div>
-
-      {/* Pagination */}
-      {totalPages > 1 && (
-        <div className="flex justify-center items-center mt-8 space-x-2">
-          <button
-            onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage === 1}
-            className={`px-4 py-2 rounded-full ${
-              currentPage === 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-100 hover:bg-gold'
-            }`}
-          >
-            Prev
-          </button>
-
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`px-4 py-2 rounded-full ${
-                currentPage === i + 1 ? 'bg-black text-gold' : 'bg-gray-200 text-gray-800 hover:bg-gold'
-              } transition`}
-            >
-              {i + 1}
-            </button>
-          ))}
-
-          <button
-            onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className={`px-4 py-2 rounded-full ${
-              currentPage === totalPages ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-gray-100 hover:bg-gold text-black'
-            }`}
-          >
-            Next
-          </button>
-        </div>
-      )}
-
-      {/* Modal */}
-      {selectedProduct && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-          onClick={() => setSelectedProduct(null)}
-        >
-          <div
-            className="bg-white rounded-lg p-6 max-w-md w-full relative flex flex-col items-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setSelectedProduct(null)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
-            >
-              &times;
-            </button>
-            <img
-              src={selectedProduct.image}
-              alt={selectedProduct.name}
-              style={{
-                width: "100%",
-                height: "220px",
-                objectFit: "contain",
-                background: "#caa92a",
-                borderRadius: "0.5rem"
-              }}
-              className="mb-4 mx-auto"
-            />
-            <h2 className="text-xl font-bold mb-2 text-center w-full">{selectedProduct.name}</h2>
-            <p className="text-gray-700 mb-4 text-center w-full">{selectedProduct.description}</p>
-            <p className="text-black font-semibold text-lg mb-4 text-center w-full">R{selectedProduct.price}</p>
-            <button
-              onClick={() => {
-                addToCart(selectedProduct);
-                setSelectedProduct(null);
-              }}
-              className="bg-black text-gold px-4 py-2 rounded-full hover:bg-gold hover:text-black border border-gold transition w-full"
-            >
-              Add to Cart
-            </button>
-          </div>
-        </div>
-      )}
+        )}
       </div>
     </section>
   );

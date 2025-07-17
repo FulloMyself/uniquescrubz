@@ -37,6 +37,9 @@ export default function Home({ cartItems, setCartItems }) {
       case "home-decor":
         navigate("/home-decor");
         break;
+      case "events":
+        navigate("/events");
+        break;
       default:
         break;
     }

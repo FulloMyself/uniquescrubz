@@ -129,12 +129,12 @@ export default function HomepageWireframe({ onEnterMall }) {
   <SpinningModel center={[3, 0, -8]} color="white" />
 
   <InteractiveBlock
-  position={[-6, 0, -8]}
+  position={[-9, 0, -8]}
   color="purple"
   text="Events"
   onClick={() => navigate("/events")}
   />
-  <SpinningModel center={[-6, 0, -8]} color="purple" />
+  <SpinningModel center={[-9, 0, -8]} color="purple" />
 
 </MallModel>
 

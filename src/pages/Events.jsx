@@ -9,11 +9,6 @@ const base = import.meta.env.BASE_URL;
 
 const images = [
   `${base}images/events/Sip_And_Paint.jpg`,
-  `${base}images/events/pop_up_shop.jpg`,
-  `${base}images/events/market_day.jpg`,
-  `${base}images/events/product_launch.jpg`,
-  `${base}images/events/customer_appreciation.jpg`,
-  `${base}images/events/workshop.jpg`,
 ];
 
 export default function Events() {

@@ -1,8 +1,6 @@
 // src/pages/CorporateGifts.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/Footer";
 
 const base = import.meta.env.BASE_URL;
@@ -14,6 +12,10 @@ const images = [
   `${base}images/corporategifts/dadgown.jpg`,
   `${base}images/corporategifts/thermalmug.jpg`,
   `${base}images/corporategifts/FathersDay.jpg`,
+  `${base}images/homedecor/framedimage.jpg`,
+  `${base}images/homedecor/framed.jpg`,
+  `${base}images/homedecor/sketch.jpg`,
+  `${base}images/homedecor/facecloths.jpg`,
 ];
 
 export default function CorporateGifts() {
@@ -21,10 +23,11 @@ export default function CorporateGifts() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    interest: "",
+    phone: "",
+    message: "",
   });
 
-  // ✅ New state for modal
+  // ✅ New modal state for image popup
   const [selectedImage, setSelectedImage] = useState(null);
 
   const handleChange = (e) => {
@@ -36,16 +39,19 @@ export default function CorporateGifts() {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://email-server-5l9g.onrender.com/send-manufacturing-booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone + " (Gift Inquiry)",
-          message: formData.message,
-        }),
-      });
+      const res = await fetch(
+        "https://email-server-5l9g.onrender.com/send-manufacturing-booking",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            phone: formData.phone + " (Gift Inquiry)",
+            message: formData.message,
+          }),
+        }
+      );
 
       const result = await res.json();
 
@@ -74,11 +80,13 @@ export default function CorporateGifts() {
       <div className="pt-28 px-6 max-w-4xl mx-auto text-center">
         <h1 className="text-3xl font-bold mb-6">Corporate Gifts</h1>
         <p className="mb-6">
-          We supply high-quality gifts for all occasions including Father's Day, Mother's Day, Valentine's Day, and more.
+          We supply high-quality gifts for all occasions including Father's Day,
+          Mother's Day, Valentine's Day, and more. View our past gifts below and
+          share your interest with us.
         </p>
       </div>
 
-      {/* ✅ Gallery Grid with Modal Trigger */}
+      {/* ✅ Gallery Grid */}
       <div className="max-w-6xl mx-auto px-4 mt-8">
         <h2 className="text-2xl font-bold mb-6 text-center">Our Past Gifts</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -102,7 +110,6 @@ export default function CorporateGifts() {
             />
           ))}
         </div>
-        <ToastContainer />
       </div>
 
       {/* ✅ Image Popup Modal */}

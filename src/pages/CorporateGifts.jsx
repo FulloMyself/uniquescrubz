@@ -24,6 +24,9 @@ export default function CorporateGifts() {
     interest: "",
   });
 
+  // ✅ New state for modal
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -75,7 +78,7 @@ export default function CorporateGifts() {
         </p>
       </div>
 
-      {/* Gallery Grid */}
+      {/* ✅ Gallery Grid with Modal Trigger */}
       <div className="max-w-6xl mx-auto px-4 mt-8">
         <h2 className="text-2xl font-bold mb-6 text-center">Our Past Gifts</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -83,36 +86,49 @@ export default function CorporateGifts() {
             <img
               key={idx}
               src={img}
-              alt=""
+              alt={`Corporate Gift ${idx + 1}`}
               style={{
-                cursor: "not-allowed",
+                cursor: "pointer",
                 width: "100%",
                 height: "200px",
                 objectFit: "contain",
                 background: "#caa92a",
                 borderRadius: "0.5rem",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
+                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
               }}
               className="transition-transform duration-300 hover:scale-105"
-              draggable="true"
-              onClick={(e) => {
-                e.preventDefault();
-                toast.info("To view image options, please right click on the image.", {
-                  position: "top-center",
-                  autoClose: 2500,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "dark",
-                });
-              }}
+              draggable="false"
+              onClick={() => setSelectedImage(img)}
             />
           ))}
         </div>
         <ToastContainer />
       </div>
+
+      {/* ✅ Image Popup Modal */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="bg-white p-4 rounded-lg relative max-w-3xl w-full transition-transform duration-300 scale-100 hover:scale-105"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl"
+            >
+              ✕
+            </button>
+            <img
+              src={selectedImage}
+              alt="Corporate Gift Preview"
+              className="w-full h-auto max-h-[80vh] object-contain rounded"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Contact Form */}
       <div className="mt-16 px-6 max-w-3xl mx-auto">
@@ -161,7 +177,9 @@ export default function CorporateGifts() {
           />
           <button
             type="submit"
-            className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+            className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${
+              isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+            }`}
             disabled={isSubmitting}
           >
             {isSubmitting ? "Submitting..." : "Submit Interest"}

@@ -127,6 +127,15 @@ export default function HomepageWireframe({ onEnterMall }) {
     onClick={() => navigate("/about")}
   />
   <SpinningModel center={[3, 0, -8]} color="white" />
+
+  <InteractiveBlock
+  position={[0, 0, 8]}
+  color="purple"
+  text="Events"
+  onClick={() => navigate("/events")}
+  />
+  <SpinningModel center={[0, 0, 8]} color="purple" />
+
 </MallModel>
 
         <OrbitControls

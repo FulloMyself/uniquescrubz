@@ -36,7 +36,7 @@ export default function Manufacturing() {
   const [videoIndex, setVideoIndex] = useState(0);
   const videos = [
     `${base}/images/manufacturing/uniquescrubs.mp4`,
-    `${base}/images/manufacturing/poodle_in_dress.mp4`
+    `${base}/images/manufacturing/poodle_in_dress.mp4`,
   ];
 
   const handleChange = (e) => {

@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 const base = import.meta.env.BASE_URL;
 
 const images = [
-  `${base}images/events/fashion_show.jpg`,
+  `${base}images/events/Sip_and_Paint.jpg`,
   `${base}images/events/pop_up_shop.jpg`,
   `${base}images/events/market_day.jpg`,
   `${base}images/events/product_launch.jpg`,

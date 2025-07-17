@@ -35,9 +35,10 @@ export default function Manufacturing() {
   });
   const [videoIndex, setVideoIndex] = useState(0);
   const videos = [
-    `${base}/images/manufacturing/uniquescrubs.mp4`,
-    `${base}/images/manufacturing/poodle_in_dress.mp4`,
+    <video src={`${base}images/manufacturing/uniquescrubs.mp4`} controls autoPlay muted loop />,
+    <video src={`${base}images/manufacturing/poodle_in_dress.mp4`} controls autoPlay muted loop />,
   ];
+
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));

@@ -104,7 +104,7 @@ export default function FeaturedProducts({
                   borderRadius: "0.5rem"
                 }}
                 className="transition-transform duration-300 hover:scale-105"
-                draggable="true"
+                draggable="false"
               />
             </div>
             <h3 className="text-lg font-semibold text-gray-700 text-center">{product.name}</h3>
@@ -122,28 +122,28 @@ export default function FeaturedProducts({
         ))}
       </div>
 
-      {/* Modal */}
+      {/* ✅ Updated Popup Modal */}
       {selectedProduct && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
           onClick={() => setSelectedProduct(null)}
         >
           <div
-            className="bg-white rounded-lg p-6 max-w-md w-full relative"
+            className="bg-white rounded-lg p-6 max-w-md w-full relative transition-transform duration-300 scale-100 hover:scale-105"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-xl"
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl"
             >
-              &times;
+              ✕
             </button>
             <img
               src={selectedProduct.image}
               alt={selectedProduct.name}
               style={{
                 width: "100%",
-                height: "220px",
+                maxHeight: "80vh",
                 objectFit: "contain",
                 background: "#caa92a",
                 borderRadius: "0.5rem"

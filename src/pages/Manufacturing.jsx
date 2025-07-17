@@ -1,10 +1,8 @@
 // src/pages/Manufacturing.jsx
 import React, { useState } from "react";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/Footer";
 
-const base = import.meta.env.BASE_URL; // Only needed if your app is deployed in a subfolder
+const base = import.meta.env.BASE_URL;
 
 const images = [
   `${base}images/manufacturing/poster.jpg`,
@@ -39,6 +37,9 @@ export default function Manufacturing() {
   });
   const [videoIndex, setVideoIndex] = useState(0);
 
+  // ✅ NEW: Selected image for popup modal
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -48,11 +49,14 @@ export default function Manufacturing() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("https://email-server-5l9g.onrender.com/send-manufacturing-booking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        "https://email-server-5l9g.onrender.com/send-manufacturing-booking",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const result = await res.json();
       if (res.ok) {
@@ -75,7 +79,10 @@ export default function Manufacturing() {
       {/* Booking Form */}
       <div className="pt-28 px-6 max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Book a Manufacturing Appointment</h1>
-        <p className="mb-4">Please fill out the form below to schedule a consultation about your manufacturing needs.</p>
+        <p className="mb-4">
+          Please fill out the form below to schedule a consultation about your
+          manufacturing needs.
+        </p>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <input
             type="text"
@@ -137,39 +144,61 @@ export default function Manufacturing() {
         <h2 className="text-2xl font-bold mb-6 text-center">Our Previous Work</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {images.map((img, idx) => (
-            <img
+            <button
               key={idx}
-              src={img}
-              alt=""
-              style={{
-                cursor: "not-allowed",
-                width: "100%",
-                height: "200px",
-                objectFit: "contain",
-                background: "#caa92a",
-                borderRadius: "0.5rem",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
-              }}
-              className="transition-transform duration-300 hover:scale-105"
-              draggable="true"
-              onClick={(e) => {
-                e.preventDefault();
-                toast.info("To view image options, please right click on the image.", {
-                  position: "top-center",
-                  autoClose: 2500,
-                  hideProgressBar: false,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: true,
-                  progress: undefined,
-                  theme: "dark",
-                });
-              }}
-            />
+              onClick={() => setSelectedImage(img)}
+              className="focus:outline-none"
+            >
+              <img
+                src={img}
+                alt={`Manufacturing ${idx + 1}`}
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "contain",
+                  background: "#caa92a",
+                  borderRadius: "0.5rem",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+                  cursor: "pointer",
+                }}
+                className="transition-transform duration-300 hover:scale-105"
+                draggable="false"
+              />
+            </button>
           ))}
         </div>
-        <ToastContainer />
       </div>
+
+      {/* ✅ Popup Modal for Image */}
+      {selectedImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="bg-white rounded-lg p-4 max-w-3xl w-full relative"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-2xl"
+            >
+              ✕
+            </button>
+            <img
+              src={selectedImage}
+              alt="Manufacturing Large View"
+              className="rounded-md mx-auto"
+              style={{
+                width: "100%",
+                maxHeight: "80vh",
+                objectFit: "contain",
+                background: "#caa92a",
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Video Preview */}
       <div className="mt-16 flex flex-col items-center">
@@ -178,7 +207,10 @@ export default function Manufacturing() {
           controls
           width="640"
           height="360"
-          style={{ borderRadius: "1rem", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
+          style={{
+            borderRadius: "1rem",
+            boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+          }}
           autoPlay
           muted
           loop
@@ -189,13 +221,21 @@ export default function Manufacturing() {
         <div className="mt-4 flex gap-4">
           <button
             onClick={() => setVideoIndex(0)}
-            className={`px-4 py-2 rounded ${videoIndex === 0 ? "bg-yellow-400 text-black" : "bg-gray-200"}`}
+            className={`px-4 py-2 rounded ${
+              videoIndex === 0
+                ? "bg-yellow-400 text-black"
+                : "bg-gray-200"
+            }`}
           >
             Video 1
           </button>
           <button
             onClick={() => setVideoIndex(1)}
-            className={`px-4 py-2 rounded ${videoIndex === 1 ? "bg-yellow-400 text-black" : "bg-gray-200"}`}
+            className={`px-4 py-2 rounded ${
+              videoIndex === 1
+                ? "bg-yellow-400 text-black"
+                : "bg-gray-200"
+            }`}
           >
             Video 2
           </button>

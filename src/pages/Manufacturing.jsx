@@ -48,7 +48,7 @@ export default function Manufacturing() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch("http://email-server-5l9g.onrender.com/send-manufacturing-booking", {
+      const res = await fetch("https://email-server-5l9g.onrender.com/send-manufacturing-booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

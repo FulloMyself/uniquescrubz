@@ -261,9 +261,9 @@ export default function Cart({ cartItems, setCartItems, isCartOpen, setIsCartOpe
 
                 <div className="bg-gray-100 p-4 rounded text-sm text-gray-800 mt-3">
                   <p className="font-semibold mb-1">🏦 Direct EFT Details:</p>
-                  <p>Account Name: Unique Scrubz</p>
+                  <p>Account Name: Unique Clothing</p>
                   <p>Bank: FNB</p>
-                  <p>Account Number: 1234567890</p>
+                  <p>Account Number: 63013787312</p>
                   <p>Reference: Your Name</p>
                 </div>
               </div>

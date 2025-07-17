@@ -10,7 +10,6 @@ import Contact from '../pages/Contact';
 import Manufacturing from '../pages/Manufacturing';
 import CorporateGifts from '../pages/CorporateGifts';
 import Events from "../pages/Events";
-import HomeDecor from '../pages/HomeDecor';
 
 export default function AnimatedRoutes({ cartItems, setCartItems }) {
   const location = useLocation();
@@ -25,7 +24,6 @@ export default function AnimatedRoutes({ cartItems, setCartItems }) {
         <Route path="/contact" element={<Contact cartItems={cartItems} setCartItems={setCartItems} />} />
         <Route path="/manufacturing" element={<Manufacturing />} />
         <Route path="/corporate-gifts" element={<CorporateGifts />} />
-        <Route path="/home-decor" element={<HomeDecor />} />
         <Route path="/events" element={<Events />} />
       </Routes>
     </AnimatePresence>

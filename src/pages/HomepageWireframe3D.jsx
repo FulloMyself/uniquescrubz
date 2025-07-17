@@ -105,12 +105,12 @@ export default function HomepageWireframe({ onEnterMall }) {
   <SpinningModel center={[0, 0, 0]} color="gold" />
 
   <InteractiveBlock
-    position={[6, 0, 0]}
-    color="lightgreen"
-    text="Home Décor"
-    onClick={() => navigate("/home-decor")}
+  position={[6, 0, 0]}
+  color="purple"
+  text="Events"
+  onClick={() => navigate("/events")}
   />
-  <SpinningModel center={[6, 0, 0]} color="lightgreen" />
+  <SpinningModel center={[6, 0, 0]} color="purple" />
 
   <InteractiveBlock
     position={[-3, 0, -8]}
@@ -122,19 +122,11 @@ export default function HomepageWireframe({ onEnterMall }) {
 
   <InteractiveBlock
     position={[3, 0, -8]}
-    color="white"
+    color="green"
     text="About Us"
     onClick={() => navigate("/about")}
   />
-  <SpinningModel center={[3, 0, -8]} color="white" />
-
-  <InteractiveBlock
-  position={[-9, 0, -8]}
-  color="purple"
-  text="Events"
-  onClick={() => navigate("/events")}
-  />
-  <SpinningModel center={[-9, 0, -8]} color="purple" />
+  <SpinningModel center={[3, 0, -8]} color="green" />
 
 </MallModel>
 

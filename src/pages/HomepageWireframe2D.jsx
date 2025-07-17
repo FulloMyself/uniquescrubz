@@ -4,11 +4,10 @@ import { Link } from "react-router-dom";
 
 export default function HomepageWireframe2D() {
   const blocks = [
-    { name: "Shop Now", route: "/shop", color: "bg-blue-400" },
-    { name: "About Us", route: "/about", color: "bg-white-400" },
+    { name: "Shop Now", route: "/shop", color: "bg-skyblue-400" },
+    { name: "About Us", route: "/about", color: "bg-green-400" },
     { name: "Gifts", route: "/corporate-gifts", color: "bg-pink-400" },
-    { name: "Gallery", route: "/manufacturing", color: "bg-yellow-400" },
-    { name: "Home-Decor", route: "/home-decor", color: "bg-green-400" },
+    { name: "Gallery", route: "/manufacturing", color: "bg-gold-400" },
     { name: "Events", route: "/events", color: "bg-purple-400" },
   ];
 

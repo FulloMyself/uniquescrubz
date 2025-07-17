@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Footer from "../components/Footer";
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL; // Only needed if your app is deployed in a subfolder
 
 const images = [
   `${base}images/manufacturing/poster.jpg`,
@@ -23,10 +23,14 @@ const images = [
   `${base}images/manufacturing/Purple_Scrubs.jpg`,
 ];
 
+// ✅ FIX: Use URLs, NOT <video> tags
+const videos = [
+  `${base}images/manufacturing/uniquescrubs.mp4`,
+  `${base}images/manufacturing/poodle_in_dress.mp4`,
+];
+
 export default function Manufacturing() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -34,19 +38,14 @@ export default function Manufacturing() {
     message: "",
   });
   const [videoIndex, setVideoIndex] = useState(0);
-  const videos = [
-    <video src={`${base}images/manufacturing/uniquescrubs.mp4`} controls autoPlay muted loop />,
-    <video src={`${base}images/manufacturing/poodle_in_dress.mp4`} controls autoPlay muted loop />,
-  ];
-
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
-     e.preventDefault();
-     setIsSubmitting(true);
+    e.preventDefault();
+    setIsSubmitting(true);
 
     try {
       const res = await fetch("https://email-server-5l9g.onrender.com/send-manufacturing-booking", {
@@ -66,8 +65,8 @@ export default function Manufacturing() {
     } catch (err) {
       console.error("Failed to send booking emails", err);
       alert("Something went wrong. Try again later.");
-       } finally {
-    setIsSubmitting(false);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -79,54 +78,55 @@ export default function Manufacturing() {
         <p className="mb-4">Please fill out the form below to schedule a consultation about your manufacturing needs.</p>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <input
-    type="text"
-    name="name"
-    id="name"
-    placeholder="Your Name"
-    required
-    autoComplete="name"
-    value={formData.name}
-    onChange={handleChange}
-    className="border p-2 rounded"
-  />
-  <input
-    type="email"
-    name="email"
-    id="email"
-    placeholder="Your Email"
-    required
-    autoComplete="email"
-    value={formData.email}
-    onChange={handleChange}
-    className="border p-2 rounded"
-  />
-  <input
-    type="tel"
-    name="phone"
-    id="phone"
-    placeholder="Your Phone"
-    autoComplete="tel"
-    value={formData.phone}
-    onChange={handleChange}
-    className="border p-2 rounded"
-  />
-  <textarea
-    name="message"
-    id="message"
-    placeholder="Your Message"
-    autoComplete="off"
-    value={formData.message}
-    onChange={handleChange}
-    className="border p-2 rounded"
-  />
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Your Name"
+            required
+            autoComplete="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Your Email"
+            required
+            autoComplete="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            placeholder="Your Phone"
+            autoComplete="tel"
+            value={formData.phone}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
+          <textarea
+            name="message"
+            id="message"
+            placeholder="Your Message"
+            autoComplete="off"
+            value={formData.message}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
           <button
-  type="submit"
-  className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
-  disabled={isSubmitting}
->
-  {isSubmitting ? "Booking..." : "Book Appointment"}
-</button>
-
+            type="submit"
+            className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${
+              isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+            }`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Booking..." : "Book Appointment"}
+          </button>
         </form>
       </div>
 
@@ -148,7 +148,7 @@ export default function Manufacturing() {
                 objectFit: "contain",
                 background: "#caa92a",
                 borderRadius: "0.5rem",
-                boxShadow: "0 2px 8px rgba(0,0,0,0.08)"
+                boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
               }}
               className="transition-transform duration-300 hover:scale-105"
               draggable="true"
@@ -173,31 +173,34 @@ export default function Manufacturing() {
 
       {/* Video Preview */}
       <div className="mt-16 flex flex-col items-center">
-      <video
-        key={videoIndex}
-        controls
-        width="640"
-        height="360"
-        style={{ borderRadius: "1rem", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
-      >
-        <source src={videos[videoIndex]} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-      <div className="mt-4 flex gap-4">
-        <button
-          onClick={() => setVideoIndex(0)}
-          className={`px-4 py-2 rounded ${videoIndex === 0 ? "bg-gold text-black" : "bg-gray-200"}`}
+        <video
+          key={videoIndex}
+          controls
+          width="640"
+          height="360"
+          style={{ borderRadius: "1rem", boxShadow: "0 2px 8px rgba(0,0,0,0.08)" }}
+          autoPlay
+          muted
+          loop
         >
-          Video 1
-        </button>
-        <button
-          onClick={() => setVideoIndex(1)}
-          className={`px-4 py-2 rounded ${videoIndex === 1 ? "bg-gold text-black" : "bg-gray-200"}`}
-        >
-          Video 2
-        </button>
+          <source src={videos[videoIndex]} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="mt-4 flex gap-4">
+          <button
+            onClick={() => setVideoIndex(0)}
+            className={`px-4 py-2 rounded ${videoIndex === 0 ? "bg-yellow-400 text-black" : "bg-gray-200"}`}
+          >
+            Video 1
+          </button>
+          <button
+            onClick={() => setVideoIndex(1)}
+            className={`px-4 py-2 rounded ${videoIndex === 1 ? "bg-yellow-400 text-black" : "bg-gray-200"}`}
+          >
+            Video 2
+          </button>
+        </div>
       </div>
-    </div>
 
       <Footer />
     </div>

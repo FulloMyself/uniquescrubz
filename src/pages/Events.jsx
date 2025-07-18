@@ -190,7 +190,7 @@ export default function Events() {
           />
           <button
             type="submit"
-            className={`bg-gold hover:bg-black text-white font-bold py-2 rounded transition ${
+            className={`bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 rounded transition ${
               isSubmitting ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={isSubmitting}

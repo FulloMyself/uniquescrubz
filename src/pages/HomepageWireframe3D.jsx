@@ -1,4 +1,4 @@
-// src/pages/HomepageWireframe3D.jsx
+// HomepageWireframe3D.jsx
 import React, { useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Html } from "@react-three/drei";
@@ -41,7 +41,7 @@ function InteractiveBlock({ position, color, text, onClick }) {
         <meshStandardMaterial color={color} />
         <Html center>
           <div
-            className="font-bold text-black"
+            className={`font-bold text-black`}
             style={{ userSelect: "none", pointerEvents: "none" }}
           >
             {text}
@@ -52,12 +52,12 @@ function InteractiveBlock({ position, color, text, onClick }) {
   );
 }
 
-export default function HomepageWireframe3D({ onEnterMall }) {
+export default function HomepageWireframe3D() {
   const navigate = useNavigate();
 
   return (
     <div className="flex flex-col min-h-screen bg-black">
-      {/* 3D Canvas (fills available space) */}
+      {/* ✅ 3D Canvas takes full available space */}
       <div className="flex-1 relative">
         <Canvas shadows camera={{ position: [0, 5, 15], fov: 50 }}>
           {/* Lighting */}
@@ -75,12 +75,12 @@ export default function HomepageWireframe3D({ onEnterMall }) {
 
           {/* Floating Title */}
           <Html position={[0, 6.5, -10]} center>
-            <div className="text-center text-3xl md:text-5xl text-gold font-extrabold animate-pulse bg-black/80 p-4 rounded-xl">
+            <div className="text-center text-3xl md:text-5xl text-gold font-extrabold animate-pulse bg-black/80 p-4 rounded-xl shadow-lg">
               WELCOME TO UNIQUE SCRUBZ MALL
             </div>
           </Html>
 
-          {/* Mall Environment with Interactive Blocks */}
+          {/* Mall Blocks */}
           <MallModel>
             <InteractiveBlock
               position={[-6, 0, 0]}
@@ -133,7 +133,7 @@ export default function HomepageWireframe3D({ onEnterMall }) {
         </Canvas>
       </div>
 
-      {/* ✅ Footer now visible below 3D canvas */}
+      {/* ✅ Footer (looks better now) */}
       <Footer />
     </div>
   );

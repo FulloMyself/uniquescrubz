@@ -76,7 +76,7 @@ export default function Navbar({ cartItems, toggleCart }) {
           initial={{ height: 0 }}
           animate={{ height: 'auto' }}
           exit={{ height: 0 }}
-          className="md:hidden bg-pink-600 px-6 py-4 flex flex-col space-y-4 text-white font-medium"
+          className="md:hidden bg-#caa92a-600 px-6 py-4 flex flex-col space-y-4 text-white font-medium"
         >
           <Link to="/" onClick={toggleMenu}>Home</Link>
           <Link to="/shop" onClick={toggleMenu}>Shop</Link>

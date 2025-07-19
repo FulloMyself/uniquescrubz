@@ -7,6 +7,7 @@ const base = import.meta.env.BASE_URL;
 
 const images = [
   `${base}images/events/Sip_And_Paint_26July2025.jpg`,
+  `${base}images/events/Sip_And_Paint_26July_2025.jpg`,
   `${base}images/events/Sip_And_Paint.jpg`,
 ];
 

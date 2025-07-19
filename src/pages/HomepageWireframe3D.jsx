@@ -1,12 +1,41 @@
 // src/pages/HomepageWireframe3D.jsx
 import React, { useState } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Html } from "@react-three/drei";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion-3d";
 import MallModel from "./MallModel";
 import SpinningModel from "../components/SpinningModel";
 import Footer from "../components/Footer";
+
+// ✅ Placeholder Walking Person Model
+function WalkingPerson({ startX, endX, z, color = "orange", speed = 0.01 }) {
+  const [direction, setDirection] = useState(1);
+  const [x, setX] = useState(startX);
+
+  useFrame(() => {
+    setX((prev) => {
+      let newX = prev + direction * speed;
+      if (newX > endX || newX < startX) setDirection(-direction);
+      return newX;
+    });
+  });
+
+  return (
+    <group position={[x, 0, z]}>
+      {/* Body */}
+      <mesh castShadow position={[0, 1, 0]}>
+        <cylinderGeometry args={[0.3, 0.3, 1.5, 16]} />
+        <meshStandardMaterial color={color} />
+      </mesh>
+      {/* Head */}
+      <mesh castShadow position={[0, 2.1, 0]}>
+        <sphereGeometry args={[0.35, 16, 16]} />
+        <meshStandardMaterial color={color} />
+      </mesh>
+    </group>
+  );
+}
 
 function InteractiveBlock({ position, color, text, onClick }) {
   const [hovered, setHovered] = useState(false);
@@ -57,14 +86,13 @@ export default function HomepageWireframe3D() {
 
   return (
     <div className="relative w-screen h-screen bg-black overflow-hidden">
-      {/* 3D Canvas Fullscreen */}
       <Canvas
         className="absolute inset-0"
         shadows
         camera={{ position: [0, 5, 15], fov: 50 }}
       >
         {/* Lighting */}
-        <ambientLight intensity={0.4} />
+        <ambientLight intensity={0.5} />
         <directionalLight castShadow position={[5, 10, 5]} intensity={0.8} />
         <spotLight
           position={[0, 12, 5]}
@@ -83,30 +111,14 @@ export default function HomepageWireframe3D() {
           </div>
         </Html>
 
-        {/* Mall with Warm Golden Walls */}
-        <group>
-          <MallModel />
-          {/* Mall Walls (Golden Yellow + White Accents) */}
-          <mesh position={[0, -1.5, -10]} receiveShadow>
-            <boxGeometry args={[40, 10, 1]} />
-            <meshStandardMaterial color="#F6C90E" /> {/* BACK WALL */}
-          </mesh>
+        {/* Mall Model */}
+        <MallModel />
 
-          <mesh position={[20, -1.5, 0]} rotation={[0, Math.PI / 2, 0]} receiveShadow>
-            <boxGeometry args={[40, 10, 1]} />
-            <meshStandardMaterial color="white" /> {/* RIGHT WALL */}
-          </mesh>
-
-          <mesh position={[-20, -1.5, 0]} rotation={[0, Math.PI / 2, 0]} receiveShadow>
-            <boxGeometry args={[40, 10, 1]} />
-            <meshStandardMaterial color="white" /> {/* LEFT WALL */}
-          </mesh>
-
-          <mesh position={[0, -1.5, 10]} receiveShadow>
-            <boxGeometry args={[40, 10, 1]} />
-            <meshStandardMaterial color="#F6C90E" /> {/* FRONT WALL */}
-          </mesh>
-        </group>
+        {/* ✅ Animated People Walking Through the Mall */}
+        <WalkingPerson startX={-8} endX={8} z={-2} color="orange" speed={0.02} />
+        <WalkingPerson startX={-6} endX={6} z={2} color="skyblue" speed={0.015} />
+        <WalkingPerson startX={-5} endX={5} z={-5} color="pink" speed={0.018} />
+        <WalkingPerson startX={-7} endX={7} z={4} color="purple" speed={0.012} />
 
         {/* Interactive Blocks */}
         <MallModel>

@@ -41,7 +41,7 @@ function InteractiveBlock({ position, color, text, onClick }) {
         <meshStandardMaterial color={color} />
         <Html center>
           <div
-            className={`font-bold text-black`}
+            className="font-bold text-black"
             style={{ userSelect: "none", pointerEvents: "none" }}
           >
             {text}
@@ -64,7 +64,7 @@ export default function HomepageWireframe3D() {
         camera={{ position: [0, 5, 15], fov: 50 }}
       >
         {/* Lighting */}
-        <ambientLight intensity={0.3} />
+        <ambientLight intensity={0.4} />
         <directionalLight castShadow position={[5, 10, 5]} intensity={0.8} />
         <spotLight
           position={[0, 12, 5]}
@@ -83,7 +83,32 @@ export default function HomepageWireframe3D() {
           </div>
         </Html>
 
-        {/* Mall Interactive Blocks */}
+        {/* Mall with Warm Golden Walls */}
+        <group>
+          <MallModel />
+          {/* Mall Walls (Golden Yellow + White Accents) */}
+          <mesh position={[0, -1.5, -10]} receiveShadow>
+            <boxGeometry args={[40, 10, 1]} />
+            <meshStandardMaterial color="#F6C90E" /> {/* BACK WALL */}
+          </mesh>
+
+          <mesh position={[20, -1.5, 0]} rotation={[0, Math.PI / 2, 0]} receiveShadow>
+            <boxGeometry args={[40, 10, 1]} />
+            <meshStandardMaterial color="white" /> {/* RIGHT WALL */}
+          </mesh>
+
+          <mesh position={[-20, -1.5, 0]} rotation={[0, Math.PI / 2, 0]} receiveShadow>
+            <boxGeometry args={[40, 10, 1]} />
+            <meshStandardMaterial color="white" /> {/* LEFT WALL */}
+          </mesh>
+
+          <mesh position={[0, -1.5, 10]} receiveShadow>
+            <boxGeometry args={[40, 10, 1]} />
+            <meshStandardMaterial color="#F6C90E" /> {/* FRONT WALL */}
+          </mesh>
+        </group>
+
+        {/* Interactive Blocks */}
         <MallModel>
           <InteractiveBlock
             position={[-6, 0, 0]}

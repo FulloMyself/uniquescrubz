@@ -34,7 +34,7 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
 
   useEffect(() => {
     if (actions && cloned && !ready) {
-      // Play all available actions
+      console.log("Available actions:", Object.keys(actions));
       Object.values(actions).forEach((action) => {
         if (action && typeof action.play === "function") action.play();
       });
@@ -51,8 +51,7 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
     if (cloned) {
       cloned.position.x = x;
       cloned.position.z = z;
-      cloned.position.y = 0; // <-- Ensure feet are on the floor
-      // Optionally flip the model when changing direction
+      cloned.position.y = -1; // Lower until feet touch the floor (adjust as needed)
       cloned.rotation.y = direction === 1 ? 0 : Math.PI;
     }
   });

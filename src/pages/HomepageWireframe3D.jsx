@@ -22,8 +22,9 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
   useEffect(() => {
     if (scene && !cloned) {
       const c = clone(scene);
-      // Fix orientation if upside down
-      c.rotation.x = Math.PI / 2;
+      // REMOVE or set to 0:
+      // c.rotation.x = Math.PI / 2;
+      c.rotation.x = 0;
       setCloned(c);
     }
   }, [scene, cloned]);

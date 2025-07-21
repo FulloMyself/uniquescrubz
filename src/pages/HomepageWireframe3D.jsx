@@ -34,13 +34,17 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
 
   useEffect(() => {
     if (actions && cloned && !ready) {
-      // Play only the first available action
-      const actionNames = Object.keys(actions);
-      if (actionNames.length > 0) {
-        const firstAction = actions[actionNames[0]];
-        if (firstAction && typeof firstAction.play === "function") {
-          firstAction.reset().play();
+      // Prefer the 'mixamo.com' action if it exists
+      let action = actions['mixamo.com'];
+      if (!action) {
+        // Fallback to the first available action
+        const actionNames = Object.keys(actions);
+        if (actionNames.length > 0) {
+          action = actions[actionNames[0]];
         }
+      }
+      if (action && typeof action.play === "function") {
+        action.reset().play();
       }
       setReady(true);
     }

@@ -7,7 +7,7 @@ import { motion } from "framer-motion-3d";
 import MallModel from "./MallModel";
 import SpinningModel from "../components/SpinningModel";
 import Footer from "../components/Footer";
-import { useGLTF, useAnimations, useGLTF as dreiUseGLTF } from "@react-three/drei";
+import { useGLTF, useAnimations } from "@react-three/drei";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
 const base = import.meta.env.BASE_URL;
@@ -61,8 +61,8 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
     if (cloned) {
       cloned.position.x = x;
       cloned.position.z = z;
-      cloned.position.y = -1;
-      cloned.rotation.y = direction === 1 ? -Math.PI / 2 : Math.PI / 2;
+      cloned.position.y = -1; // Lower until feet touch the floor (adjust as needed)
+      cloned.rotation.y = direction === 1 ? 0 : Math.PI;
     }
   });
 
@@ -148,9 +148,8 @@ export default function HomepageWireframe3D() {
         <MallModel />
 
         {/* ✅ Real Animated People Walking */}
-        <MovingPerson startX={4} endX={8} z={-2} speed={0.02} scale={2} />
+        <MovingPerson startX={-8} endX={8} z={-2} speed={0.02} scale={2} />
         <MovingPerson startX={-6} endX={6} z={3} speed={0.018} scale={2} />
-        <MovingPerson startX={-5} endX={5} z={-5} speed={0.016} scale={2} />
 
         {/* Interactive Blocks */}
         <MallModel>
@@ -213,4 +212,4 @@ export default function HomepageWireframe3D() {
 }
 
 // ✅ Preload GLTF model for faster loading
-// dreiUseGLTF.preload(`${base}models/Walking_Person_Amy2.fbx.gltf`);
+useGLTF.preload(`${base}models/Walking_Person_Amy2.fbx.gltf`);

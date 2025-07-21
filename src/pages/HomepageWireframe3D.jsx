@@ -34,10 +34,14 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
 
   useEffect(() => {
     if (actions && cloned && !ready) {
-      console.log("Available actions:", Object.keys(actions));
-      Object.values(actions).forEach((action) => {
-        if (action && typeof action.play === "function") action.play();
-      });
+      // Play only the first available action
+      const actionNames = Object.keys(actions);
+      if (actionNames.length > 0) {
+        const firstAction = actions[actionNames[0]];
+        if (firstAction && typeof firstAction.play === "function") {
+          firstAction.reset().play();
+        }
+      }
       setReady(true);
     }
   }, [actions, cloned, ready]);

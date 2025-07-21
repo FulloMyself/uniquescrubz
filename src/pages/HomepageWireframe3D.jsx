@@ -13,7 +13,7 @@ import { useGLTF, useAnimations } from "@react-three/drei";
 function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 }) {
   const [direction, setDirection] = useState(1);
   const [x, setX] = useState(startX);
-  const { scene, animations } = useGLTF("/models/Walking_Person.glb");
+  const { scene, animations } = useGLTF("public/models/Walking_Person.glb");
   const { actions } = useAnimations(animations, scene);
 
   useEffect(() => {
@@ -180,4 +180,4 @@ export default function HomepageWireframe3D() {
 }
 
 // ✅ Preload GLTF model for faster loading
-useGLTF.preload("/models/Walking_Person.glb");
+useGLTF.preload("public/models/Walking_Person.glb");

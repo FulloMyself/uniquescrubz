@@ -50,6 +50,7 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
     if (cloned) {
       cloned.position.x = x;
       cloned.position.z = z;
+      cloned.position.y = 0; // <-- Ensure feet are on the floor
       // Optionally flip the model when changing direction
       cloned.rotation.y = direction === 1 ? 0 : Math.PI;
     }

@@ -16,7 +16,7 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
   const [x, setX] = useState(startX);
   const { scene, animations } = useGLTF("/models/Walking_Person.glb");
   const [cloned, setCloned] = useState();
-  const actionsRef = useRef();
+  const [ready, setReady] = useState(false);
 
   // Clone the scene only once, after it's loaded
   useEffect(() => {
@@ -30,13 +30,14 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
   const { actions } = useAnimations(animations, cloned);
 
   useEffect(() => {
-    if (actions) {
-      actionsRef.current = actions;
+    if (actions && cloned && !ready) {
+      // Play all available actions
       Object.values(actions).forEach((action) => {
         if (action && typeof action.play === "function") action.play();
       });
+      setReady(true);
     }
-  }, [actions]);
+  }, [actions, cloned, ready]);
 
   useFrame(() => {
     setX((prev) => {
@@ -47,6 +48,8 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
     if (cloned) {
       cloned.position.x = x;
       cloned.position.z = z;
+      // Optionally flip the model when changing direction
+      cloned.rotation.y = direction === 1 ? 0 : Math.PI;
     }
   });
 
@@ -132,10 +135,10 @@ export default function HomepageWireframe3D() {
         <MallModel />
 
         {/* ✅ Real Animated People Walking */}
-        <MovingPerson startX={-8} endX={8} z={-2} speed={0.02} scale={0.05} />
-        <MovingPerson startX={-6} endX={6} z={3} speed={0.018} scale={0.045} />
-        <MovingPerson startX={-5} endX={5} z={-5} speed={0.016} scale={0.042} />
-        <MovingPerson startX={-7} endX={7} z={4} speed={0.015} scale={0.048} />
+        <MovingPerson startX={-8} endX={8} z={-2} speed={0.02} scale={0.005} />
+        <MovingPerson startX={-6} endX={6} z={3} speed={0.018} scale={0.0045} />
+        <MovingPerson startX={-5} endX={5} z={-5} speed={0.016} scale={0.0042} />
+        <MovingPerson startX={-7} endX={7} z={4} speed={0.015} scale={0.0048} />
 
         {/* Interactive Blocks */}
         <MallModel>

@@ -7,7 +7,7 @@ import { motion } from "framer-motion-3d";
 import MallModel from "./MallModel";
 import SpinningModel from "../components/SpinningModel";
 import Footer from "../components/Footer";
-import { dreiUseGLTF, useAnimations } from "@react-three/drei";
+import { useGLTF, useAnimations, useGLTF as dreiUseGLTF } from "@react-three/drei";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
 const base = import.meta.env.BASE_URL;

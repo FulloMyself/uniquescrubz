@@ -1,73 +1,12 @@
 // src/pages/HomepageWireframe3D.jsx
-import React, { useState, useEffect, useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import React, { useState } from "react";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Html } from "@react-three/drei";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion-3d";
 import MallModel from "./MallModel";
 import SpinningModel from "../components/SpinningModel";
 import Footer from "../components/Footer";
-import { useGLTF, useAnimations } from "@react-three/drei";
-import { clone } from "three/examples/jsm/utils/SkeletonUtils";
-
-const base = import.meta.env.BASE_URL;
-
-// ✅ Animated Walking Person (Mixamo GLB)
-function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 }) {
-  const [direction, setDirection] = useState(1);
-  const [x, setX] = useState(startX);
-  const { scene, animations } = useGLTF(`${base}models/Untitled.gltf`);
-  const [cloned, setCloned] = useState();
-  const [ready, setReady] = useState(false);
-
-  // Clone the scene only once, after it's loaded
-  useEffect(() => {
-    if (scene && !cloned) {
-      const c = clone(scene);
-      // REMOVE or set to 0:
-      // c.rotation.x = Math.PI / 2;
-      c.rotation.x = 0;
-      setCloned(c);
-    }
-  }, [scene, cloned]);
-
-  // Setup animations only after clone is ready
-  const { actions } = useAnimations(animations, cloned);
-
-  useEffect(() => {
-    if (actions && cloned && !ready) {
-      // Prefer the 'mixamo.com' action if it exists
-      let action = actions['mixamo.com'];
-      if (!action) {
-        // Fallback to the first available action
-        const actionNames = Object.keys(actions);
-        if (actionNames.length > 0) {
-          action = actions[actionNames[0]];
-        }
-      }
-      if (action && typeof action.play === "function") {
-        action.reset().play();
-      }
-      setReady(true);
-    }
-  }, [actions, cloned, ready]);
-
-  useFrame(() => {
-    setX((prev) => {
-      const next = prev + direction * speed;
-      if (next >= endX || next <= startX) setDirection(-direction);
-      return next;
-    });
-    if (cloned) {
-      cloned.position.x = x;
-      cloned.position.z = z;
-      cloned.position.y = -1; // Lower until feet touch the floor (adjust as needed)
-      cloned.rotation.y = direction === 1 ? 0 : Math.PI;
-    }
-  });
-
-  return cloned ? <primitive object={cloned} scale={scale} /> : null;
-}
 
 // ✅ Interactive Shop Blocks
 function InteractiveBlock({ position, color, text, onClick }) {
@@ -147,10 +86,6 @@ export default function HomepageWireframe3D() {
         {/* Mall Model */}
         <MallModel />
 
-        {/* ✅ Real Animated People Walking */}
-        <MovingPerson startX={-8} endX={8} z={-2} speed={0.02} scale={2} />
-        <MovingPerson startX={-6} endX={6} z={3} speed={0.018} scale={2} />
-
         {/* Interactive Blocks */}
         <MallModel>
           <InteractiveBlock
@@ -210,6 +145,3 @@ export default function HomepageWireframe3D() {
     </div>
   );
 }
-
-// ✅ Preload GLTF model for faster loading
-useGLTF.preload(`${base}models/Untitled.gltf`);

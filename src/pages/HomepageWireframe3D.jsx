@@ -15,19 +15,26 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
   const [direction, setDirection] = useState(1);
   const [x, setX] = useState(startX);
   const { scene, animations } = useGLTF("/models/Walking_Person.glb");
-  const cloned = useRef();
-  const { actions } = useAnimations(animations, cloned.current);
+  const [cloned, setCloned] = useState();
+  const actionsRef = useRef();
 
-  // Clone the scene only once
+  // Clone the scene only once, after it's loaded
   useEffect(() => {
-    if (!cloned.current) {
-      cloned.current = clone(scene);
+    if (scene && !cloned) {
+      const c = clone(scene);
+      setCloned(c);
     }
-  }, [scene]);
+  }, [scene, cloned]);
+
+  // Setup animations only after clone is ready
+  const { actions } = useAnimations(animations, cloned);
 
   useEffect(() => {
     if (actions) {
-      Object.values(actions).forEach((action) => action.play());
+      actionsRef.current = actions;
+      Object.values(actions).forEach((action) => {
+        if (action && typeof action.play === "function") action.play();
+      });
     }
   }, [actions]);
 
@@ -37,13 +44,13 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
       if (next >= endX || next <= startX) setDirection(-direction);
       return next;
     });
-    if (cloned.current) {
-      cloned.current.position.x = x;
-      cloned.current.position.z = z;
+    if (cloned) {
+      cloned.position.x = x;
+      cloned.position.z = z;
     }
   });
 
-  return cloned.current ? <primitive object={cloned.current} scale={scale} /> : null;
+  return cloned ? <primitive object={cloned} scale={scale} /> : null;
 }
 
 // ✅ Interactive Shop Blocks

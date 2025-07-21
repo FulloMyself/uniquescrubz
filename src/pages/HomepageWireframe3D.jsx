@@ -10,6 +10,8 @@ import Footer from "../components/Footer";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
+const base = import.meta.env.BASE_URL;
+
 // ✅ Animated Walking Person (Mixamo GLB)
 function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 }) {
   const [direction, setDirection] = useState(1);

@@ -7,7 +7,7 @@ import { motion } from "framer-motion-3d";
 import MallModel from "./MallModel";
 import SpinningModel from "../components/SpinningModel";
 import Footer from "../components/Footer";
-import { useGLTF, useAnimations } from "@react-three/drei";
+import { dreiUseGLTF, useAnimations } from "@react-three/drei";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
 const base = import.meta.env.BASE_URL;
@@ -213,4 +213,4 @@ export default function HomepageWireframe3D() {
 }
 
 // ✅ Preload GLTF model for faster loading
-useGLTF.preload(`${base}models/Walking_Person_Amy2.fbx.gltf`);
+dreiUseGLTF.preload(`${base}models/Walking_Person_Amy2.fbx.gltf`);

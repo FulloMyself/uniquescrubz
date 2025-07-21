@@ -62,7 +62,7 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
       cloned.position.x = x;
       cloned.position.z = z;
       cloned.position.y = -1;
-      cloned.rotation.y = direction === 1 ? Math.PI / 2 : -Math.PI / 2;
+      cloned.rotation.y = direction === 1 ? -Math.PI / 2 : Math.PI / 2;
     }
   });
 

@@ -1,5 +1,5 @@
 // src/pages/HomepageWireframe3D.jsx
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Html } from "@react-three/drei";
 import { useNavigate } from "react-router-dom";
@@ -8,13 +8,22 @@ import MallModel from "./MallModel";
 import SpinningModel from "../components/SpinningModel";
 import Footer from "../components/Footer";
 import { useGLTF, useAnimations } from "@react-three/drei";
+import { clone } from "three/examples/jsm/utils/SkeletonUtils";
 
 // ✅ Animated Walking Person (Mixamo GLB)
 function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 }) {
   const [direction, setDirection] = useState(1);
   const [x, setX] = useState(startX);
   const { scene, animations } = useGLTF("public/models/Walking_Person.glb");
-  const { actions } = useAnimations(animations, scene);
+  const cloned = useRef();
+  const { actions } = useAnimations(animations, cloned.current);
+
+  // Clone the scene only once
+  useEffect(() => {
+    if (!cloned.current) {
+      cloned.current = clone(scene);
+    }
+  }, [scene]);
 
   useEffect(() => {
     if (actions) {
@@ -28,11 +37,13 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
       if (next >= endX || next <= startX) setDirection(-direction);
       return next;
     });
-    scene.position.x = x;
-    scene.position.z = z;
+    if (cloned.current) {
+      cloned.current.position.x = x;
+      cloned.current.position.z = z;
+    }
   });
 
-  return <primitive object={scene} scale={scale} />;
+  return cloned.current ? <primitive object={cloned.current} scale={scale} /> : null;
 }
 
 // ✅ Interactive Shop Blocks

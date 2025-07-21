@@ -213,4 +213,4 @@ export default function HomepageWireframe3D() {
 }
 
 // ✅ Preload GLTF model for faster loading
-dreiUseGLTF.preload(`${base}models/Walking_Person_Amy2.fbx.gltf`);
+// dreiUseGLTF.preload(`${base}models/Walking_Person_Amy2.fbx.gltf`);

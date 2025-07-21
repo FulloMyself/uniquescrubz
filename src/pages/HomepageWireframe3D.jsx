@@ -16,7 +16,7 @@ const base = import.meta.env.BASE_URL;
 function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 }) {
   const [direction, setDirection] = useState(1);
   const [x, setX] = useState(startX);
-  const { scene, animations } = useGLTF(`${base}models/Walking_Person_Amy2.fbx.gltf`);
+  const { scene, animations } = useGLTF(`${base}models/Untitled.gltf`);
   const [cloned, setCloned] = useState();
   const [ready, setReady] = useState(false);
 
@@ -212,4 +212,4 @@ export default function HomepageWireframe3D() {
 }
 
 // ✅ Preload GLTF model for faster loading
-useGLTF.preload(`${base}models/Walking_Person_Amy2.fbx.gltf`);
+useGLTF.preload(`${base}models/Untitled.gltf`);

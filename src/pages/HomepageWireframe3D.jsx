@@ -132,10 +132,10 @@ export default function HomepageWireframe3D() {
         <MallModel />
 
         {/* ✅ Real Animated People Walking */}
-        <MovingPerson startX={-8} endX={8} z={-2} speed={0.02} scale={0.5} />
-        <MovingPerson startX={-6} endX={6} z={3} speed={0.018} scale={0.45} />
-        <MovingPerson startX={-5} endX={5} z={-5} speed={0.016} scale={0.42} />
-        <MovingPerson startX={-7} endX={7} z={4} speed={0.015} scale={0.48} />
+        <MovingPerson startX={-8} endX={8} z={-2} speed={0.02} scale={0.05} />
+        <MovingPerson startX={-6} endX={6} z={3} speed={0.018} scale={0.045} />
+        <MovingPerson startX={-5} endX={5} z={-5} speed={0.016} scale={0.042} />
+        <MovingPerson startX={-7} endX={7} z={4} speed={0.015} scale={0.048} />
 
         {/* Interactive Blocks */}
         <MallModel>

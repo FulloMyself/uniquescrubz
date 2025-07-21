@@ -22,6 +22,8 @@ function MovingPerson({ startX = -5, endX = 5, z = 0, speed = 0.02, scale = 1.2 
   useEffect(() => {
     if (scene && !cloned) {
       const c = clone(scene);
+      // Fix orientation if upside down
+      c.rotation.x = -Math.PI / 2;
       setCloned(c);
     }
   }, [scene, cloned]);
@@ -135,10 +137,10 @@ export default function HomepageWireframe3D() {
         <MallModel />
 
         {/* ✅ Real Animated People Walking */}
-        <MovingPerson startX={-8} endX={8} z={-2} speed={0.02} scale={0.005} />
-        <MovingPerson startX={-6} endX={6} z={3} speed={0.018} scale={0.0045} />
-        <MovingPerson startX={-5} endX={5} z={-5} speed={0.016} scale={0.0042} />
-        <MovingPerson startX={-7} endX={7} z={4} speed={0.015} scale={0.0048} />
+        <MovingPerson startX={-8} endX={8} z={-2} speed={0.02} scale={0.025} />
+        <MovingPerson startX={-6} endX={6} z={3} speed={0.018} scale={0.0145} />
+        <MovingPerson startX={-5} endX={5} z={-5} speed={0.016} scale={0.0142} />
+        <MovingPerson startX={-7} endX={7} z={4} speed={0.015} scale={0.0148} />
 
         {/* Interactive Blocks */}
         <MallModel>

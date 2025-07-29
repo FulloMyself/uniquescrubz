@@ -176,21 +176,6 @@ export default function ProductSection({
     },
   ];
 
-  
-        {
-      id: 12,
-      name: 'Colour Me - Tote Bag',
-      price: 160,
-      numericPrice: 160,
-      color: ['White'],
-      tags: ['Unisex'],
-      image: KigsBagImg,
-      description: 'A tote bag you can colour as you like. Great for keeping kids busy in a craetive way.',
-      sizes: ['S', 'M'],
-      type: 'Bag',
-    },
-  ];
-
   const filteredProducts = products
     .filter((product) => {
       const colorMatch =

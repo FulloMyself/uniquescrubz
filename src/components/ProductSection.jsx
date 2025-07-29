@@ -170,7 +170,7 @@ export default function ProductSection({
       numericPrice: 160,
       color: ['White'],
       tags: ['Unisex'],
-      image: KigsBagImg,
+      image: KidsBagImg,
       description: 'A tote bag you can colour as you like. Great for keeping kids busy in a craetive way.',
       sizes: ['S', 'M'],
       type: 'Bag',

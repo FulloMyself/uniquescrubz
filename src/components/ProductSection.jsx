@@ -13,6 +13,7 @@ import GenderNeutralBlackFullScrubImg from '/assets/GenderNeutralBlackFull_Scrub
 import GenderNeutralBlueFullScrubImg from '/assets/GenderNeutralBlueFull_Scrub.png';
 import GentsColourfulScrubsImg from '/assets/GentsColourful_Scrubs.jpeg';
 import GrayFullScrubsImg from '/assets/GrayFull_Scrubs.jpeg';
+import KidsBagImg from '/assets/Kids_Bag.jpeg';
 
 export default function ProductSection({
   setCartItems,
@@ -160,6 +161,18 @@ export default function ProductSection({
       description: 'A sleek and professional gray scrub designed for comfort and performance.',
       sizes: ['XS', 'S', 'M', 'L', 'XL'],
       type: 'Set',
+    },
+        {
+      id: 12,
+      name: 'Colour Me - Tote Bag',
+      price: 160,
+      numericPrice: 160,
+      color: ['White'],
+      tags: ['Unisex'],
+      image: KigsBagImg,
+      description: 'A tote bag you can colour as you like. Great for keeping kids busy in a craetive way.',
+      sizes: ['S', 'M'],
+      type: 'Bag',
     },
   ];
 

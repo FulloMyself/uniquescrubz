@@ -13,6 +13,7 @@ import GenderNeutralBlackFullScrubImg from '/assets/GenderNeutralBlackFull_Scrub
 import GenderNeutralBlueFullScrubImg from '/assets/GenderNeutralBlueFull_Scrub.png';
 import GentsColourfulScrubsImg from '/assets/GentsColourful_Scrubs.jpeg';
 import GrayFullScrubsImg from '/assets/GrayFull_Scrubs.jpeg';
+import KidsBagImg from '/assets/Kids_Bag.jpeg';
 
 export default function ProductSection({
   setCartItems,

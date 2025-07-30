@@ -249,6 +249,7 @@ export default function ProductSection({
             <option value="Top">Tops</option>
             <option value="Pants">Pants</option>
             <option value="Set">Scrub Sets</option>
+            <option value="Bag">Bags</option>
           </select>
         </div>
 

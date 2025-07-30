@@ -89,6 +89,8 @@ export default function Home({ cartItems, setCartItems }) {
           <option value="Black">Black</option>
           <option value="Pink">Pink</option>
           <option value="Blue">Blue</option>
+          <option value="White">White</option>
+
         </select>
 
         <select
